@@ -990,16 +990,29 @@ function navigateToStep(step){
 }
 
 
+function renderByStep(step) {
+  // Hide all steps first (Assumes your HTML IDs are step1, step2, step3)
+  const s1 = document.getElementById("step1");
+  const s2 = document.getElementById("step2");
+  const s3 = document.getElementById("step3");
+  
+  if (s1) s1.hidden = (step !== 1);
+  if (s2) s2.hidden = (step !== 2);
+  if (s3) s3.hidden = (step !== 3);
+
   if (step === 2){
-    document.getElementById("tokenStep2").textContent = state.token;
+    const el = document.getElementById("tokenStep2");
+    if (el) el.textContent = state.token;
     startStep2Timer();
   } else {
     clearStep2Timer();
   }
 
   if (step === 3){
-    document.getElementById("tokenStep3").textContent = state.token;
+    const el = document.getElementById("tokenStep3");
+    if (el) el.textContent = state.token;
   }
+}
 
 
 function readFileAsBase64(file){
@@ -1209,6 +1222,7 @@ init();
 </script>
 </body>
 </html>
+
 
 
 
