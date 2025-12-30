@@ -761,12 +761,6 @@ function setUrl(step, token){
   history.replaceState({}, "", u.toString());
 }
 
-function showStep(step){
-  document.querySelectorAll(".stepcard").forEach(el => el.classList.remove("active"));
-  document.getElementById("step" + step).classList.add("active");
-  document.getElementById("pillStep").textContent = String(step);
-}
-
 function clamp(n, a, b){ return Math.min(b, Math.max(a, n)); }
 function round1(x){ return Math.round(x * 10) / 10; }
 
@@ -1218,4 +1212,5 @@ init();
 </script>
 </body>
 </html>
+
 
