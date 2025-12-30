@@ -424,190 +424,240 @@
     </div>
   </div>
 
-  <script>
-    // =========================
-    // IN-MEMORY STORAGE
-    // =========================
-    let identityStore = null;
+ <script>
+  // =========================
+  // PERSISTENCE (localStorage)
+  // Must match the eval page key
+  // =========================
+  const IDENTITY_KEY = "ccap_eval_identity_v1";
 
-    const EVAL_URL = "https://plpilon.github.io/ccap-ccpa/evaluationTIaffaires.html";
+  const EVAL_URL = "https://plpilon.github.io/ccap-ccpa/evaluationTIaffaires.html";
 
-    // =========================
-    // Helpers
-    // =========================
-    function getUrlParam(name){
-      return new URLSearchParams(location.search).get(name);
+  // =========================
+  // Helpers
+  // =========================
+  function getUrlParam(name){
+    return new URLSearchParams(location.search).get(name);
+  }
+
+  function genToken(){
+    if (crypto && crypto.randomUUID) return crypto.randomUUID();
+    const bytes = new Uint8Array(16);
+    (crypto || window.msCrypto).getRandomValues(bytes);
+    return [...bytes].map(b => b.toString(16).padStart(2,"0")).join("");
+  }
+
+  function loadIdentity(){
+    try{
+      const raw = localStorage.getItem(IDENTITY_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function saveIdentity(obj){
+    try{
+      localStorage.setItem(IDENTITY_KEY, JSON.stringify(obj));
+    } catch {
+      // ignore storage issues
+    }
+  }
+
+  function clearIdentity(){
+    try{
+      localStorage.removeItem(IDENTITY_KEY);
+    } catch {
+      // ignore
+    }
+  }
+
+  function isLoggedIn(){
+    const id = loadIdentity();
+    return !!(id && id.token && id.studentId);
+  }
+
+  function tokenShort(t){
+    if (!t) return "";
+    return t.slice(0, 8);
+  }
+
+  function getTokenParam(){
+    const id = loadIdentity();
+    return id && id.token ? `token=${encodeURIComponent(id.token)}` : "";
+  }
+
+  function updateUI(){
+    const id = loadIdentity();
+    const loggedIn = !!(id && id.token && id.studentId);
+
+    // Breadcrumb area
+    const btnLogin = document.getElementById("btnLogin");
+    const loginPill = document.getElementById("loginPill");
+    const pillToken = document.getElementById("pillToken");
+
+    if (btnLogin) btnLogin.style.display = loggedIn ? "none" : "inline-block";
+    if (loginPill) loginPill.style.display = loggedIn ? "inline-flex" : "none";
+    if (pillToken) pillToken.textContent = loggedIn && id ? tokenShort(id.token) : "";
+
+    // Console footer
+    const statusDot = document.getElementById("statusDot");
+    const consoleStatus = document.getElementById("consoleStatus");
+    const consoleTokenArea = document.getElementById("consoleTokenArea");
+    const consoleToken = document.getElementById("consoleToken");
+    const btnConsoleAction = document.getElementById("btnConsoleAction");
+
+    if (statusDot) statusDot.classList.toggle("connected", loggedIn);
+    if (consoleStatus) consoleStatus.textContent = loggedIn ? "connecté" : "non connecté";
+    if (consoleTokenArea) consoleTokenArea.style.display = loggedIn ? "inline" : "none";
+    if (consoleToken) consoleToken.textContent = loggedIn && id ? tokenShort(id.token) : "";
+
+    if (btnConsoleAction){
+      btnConsoleAction.style.display = loggedIn ? "inline-block" : "none";
+      btnConsoleAction.textContent = "Déconnexion";
     }
 
-    function genToken(){
-      if (crypto && crypto.randomUUID) return crypto.randomUUID();
-      const bytes = new Uint8Array(16);
-      (crypto || window.msCrypto).getRandomValues(bytes);
-      return [...bytes].map(b => b.toString(16).padStart(2,"0")).join("");
+    const evalHint = document.getElementById("evalHint");
+    if (evalHint) evalHint.textContent = loggedIn ? "✓ Session prête" : "";
+  }
+
+  function openModal(){
+    const modal = document.getElementById("loginModal");
+    if (!modal) return;
+    modal.hidden = false;
+
+    const cached = loadIdentity();
+    if (cached){
+      const fn = document.getElementById("firstName");
+      const ln = document.getElementById("lastName");
+      const sid = document.getElementById("studentId");
+      if (fn) fn.value = cached.firstName || "";
+      if (ln) ln.value = cached.lastName || "";
+      if (sid) sid.value = cached.studentId || "";
     }
 
-    function loadIdentity(){
-      return identityStore;
-    }
+    const sid = document.getElementById("studentId");
+    if (sid) sid.focus();
+  }
 
-    function saveIdentity(obj){
-      identityStore = obj;
-    }
+  function closeModal(){
+    const modal = document.getElementById("loginModal");
+    if (modal) modal.hidden = true;
+  }
 
-    function clearIdentity(){
-      identityStore = null;
-    }
+  // =========================
+  // Events (null-safe bindings)
+  // =========================
+  (function bind(){
+    const btnLogin = document.getElementById("btnLogin");
+    const loginPill = document.getElementById("loginPill");
+    const btnCloseModal = document.getElementById("btnCloseModal");
+    const loginForm = document.getElementById("loginForm");
+    const btnGoEval = document.getElementById("btnGoEval");
+    const btnConsoleAction = document.getElementById("btnConsoleAction");
+    const btnAccessPlateforme = document.getElementById("btnAccessPlateforme");
 
-    function updateUI(){
-      const id = loadIdentity();
-      const isLoggedIn = !!(id && id.token && id.studentId);
+    if (btnLogin) btnLogin.addEventListener("click", openModal);
+    if (loginPill) loginPill.addEventListener("click", openModal);
+    if (btnCloseModal) btnCloseModal.addEventListener("click", closeModal);
 
-      // Breadcrumb area
-      const btnLogin = document.getElementById("btnLogin");
-      const loginPill = document.getElementById("loginPill");
-      const pillToken = document.getElementById("pillToken");
+    if (loginForm){
+      loginForm.addEventListener("submit", (e)=>{
+        e.preventDefault();
 
-      if (isLoggedIn) {
-        btnLogin.style.display = "none";
-        loginPill.style.display = "inline-flex";
-        pillToken.textContent = id.token.slice(0, 8);
-      } else {
-        btnLogin.style.display = "inline-block";
-        loginPill.style.display = "none";
-      }
+        const firstName = String((document.getElementById("firstName")?.value) || "").trim();
+        const lastName  = String((document.getElementById("lastName")?.value) || "").trim();
+        const studentId = String((document.getElementById("studentId")?.value) || "").trim();
 
-      // Console footer
-      const statusDot = document.getElementById("statusDot");
-      const consoleStatus = document.getElementById("consoleStatus");
-      const consoleTokenArea = document.getElementById("consoleTokenArea");
-      const consoleToken = document.getElementById("consoleToken");
-      const btnConsoleAction = document.getElementById("btnConsoleAction");
+        if (!studentId){
+          alert("Ajoute au moins un numéro étudiant ou un courriel.");
+          return;
+        }
 
-      if (isLoggedIn) {
-        statusDot.classList.add("connected");
-        consoleStatus.textContent = "connecté";
-        consoleTokenArea.style.display = "inline";
-        consoleToken.textContent = id.token.slice(0, 8);
-        btnConsoleAction.style.display = "inline-block";
-        btnConsoleAction.textContent = "Déconnexion";
-      } else {
-        statusDot.classList.remove("connected");
-        consoleStatus.textContent = "non connecté";
-        consoleTokenArea.style.display = "none";
-        btnConsoleAction.style.display = "none";
-      }
-    }
+        const cached = loadIdentity();
+        const token = (cached && cached.token) ? cached.token : genToken();
 
-    function openModal(){
-      document.getElementById("loginModal").hidden = false;
-      const cached = loadIdentity();
-      if (cached){
-        document.getElementById("firstName").value = cached.firstName || "";
-        document.getElementById("lastName").value = cached.lastName || "";
-        document.getElementById("studentId").value = cached.studentId || "";
-      }
-      document.getElementById("studentId").focus();
-    }
-
-    function closeModal(){
-      document.getElementById("loginModal").hidden = true;
-    }
-
-    function isLoggedIn(){
-      const id = loadIdentity();
-      return !!(id && id.token && id.studentId);
-    }
-
-    function getTokenParam(){
-      const id = loadIdentity();
-      return id && id.token ? `token=${encodeURIComponent(id.token)}` : '';
-    }
-
-    // =========================
-    // Events
-    // =========================
-    document.getElementById("btnLogin").addEventListener("click", openModal);
-    document.getElementById("loginPill").addEventListener("click", openModal);
-    document.getElementById("btnCloseModal").addEventListener("click", closeModal);
-
-    document.getElementById("loginForm").addEventListener("submit", (e)=>{
-      e.preventDefault();
-
-      const firstName = String(document.getElementById("firstName").value || "").trim();
-      const lastName  = String(document.getElementById("lastName").value || "").trim();
-      const studentId = String(document.getElementById("studentId").value || "").trim();
-
-      if (!studentId){
-        alert("Ajoute au moins un numéro étudiant ou un courriel.");
-        return;
-      }
-
-      const cached = loadIdentity();
-      const token = (cached && cached.token) || genToken();
-
-      saveIdentity({ token, firstName, lastName, studentId });
-      updateUI();
-      closeModal();
-
-      document.getElementById("evalHint").textContent = "✓ Session prête";
-    });
-
-    document.getElementById("btnGoEval").addEventListener("click", ()=>{
-      if (!isLoggedIn()) {
-        openModal();
-        return;
-      }
-
-      const id = loadIdentity();
-      const url = `${EVAL_URL}?step=1&token=${encodeURIComponent(id.token)}`;
-      window.location.href = url;
-    });
-
-    document.getElementById("btnConsoleAction").addEventListener("click", ()=>{
-      if (isLoggedIn()) {
-        clearIdentity();
+        saveIdentity({ token, firstName, lastName, studentId });
         updateUI();
-        document.getElementById("evalHint").textContent = "";
-      }
-    });
-    document.getElementById("btnAccessPlateforme").addEventListener("click", (e) => {
-    e.preventDefault();
-    if (!isLoggedIn()) {
-        openModal();
+        closeModal();
+      });
     }
-  // If logged in, do nothing (just scroll to #plateforme anchor)
-});
+
+    if (btnGoEval){
+      btnGoEval.addEventListener("click", ()=>{
+        if (!isLoggedIn()) {
+          openModal();
+          return;
+        }
+        const id = loadIdentity();
+        const url = `${EVAL_URL}?step=1&token=${encodeURIComponent(id.token)}`;
+        window.location.href = url;
+      });
+    }
+
+    if (btnConsoleAction){
+      btnConsoleAction.addEventListener("click", ()=>{
+        if (isLoggedIn()) {
+          clearIdentity();
+          updateUI();
+        }
+      });
+    }
+
+    if (btnAccessPlateforme){
+      btnAccessPlateforme.addEventListener("click", (e)=>{
+        e.preventDefault();
+        if (!isLoggedIn()) openModal();
+        // if logged in, let the anchor behavior happen naturally (scroll)
+        // NOTE: we prevented default, so do the scroll manually:
+        if (isLoggedIn()){
+          const target = document.getElementById("plateforme");
+          if (target) target.scrollIntoView({behavior:"smooth"});
+        }
+      });
+    }
+
     // Handle all links that require login
-    document.querySelectorAll('.require-login').forEach(link => {
-      link.addEventListener('click', (e) => {
+    document.querySelectorAll(".require-login").forEach(link => {
+      link.addEventListener("click", (e) => {
         e.preventDefault();
         if (!isLoggedIn()) {
           openModal();
           return;
         }
-        const page = link.dataset.page || link.getAttribute('href').replace('#', '');
+        const page = link.dataset.page || (link.getAttribute("href") || "").replace("#", "");
         const tokenParam = getTokenParam();
         const url = `${page}.html?${tokenParam}`;
         alert(`Navigation vers: ${url}\n(Ces pages n'existent pas encore dans cette démo)`);
       });
     });
+  })();
 
-    // Initialize - check for token in URL
-    (function init(){
-      const urlToken = getUrlParam('token');
-      if (urlToken) {
-        // Restore session from URL parameter
-        const cached = loadIdentity() || {};
-        saveIdentity({
-          token: urlToken,
-          firstName: cached.firstName || "",
-          lastName: cached.lastName || "",
-          studentId: cached.studentId || "Utilisateur"
-        });
-      }
-      updateUI();
-    })();
-  </script>
+  // =========================
+  // Init
+  // =========================
+  (function init(){
+    const urlToken = getUrlParam("token");
+    const stored = loadIdentity();
+
+    if (urlToken) {
+      // If token provided, persist it and keep any known identity fields
+      saveIdentity({
+        token: urlToken,
+        firstName: stored ? (stored.firstName || "") : "",
+        lastName: stored ? (stored.lastName || "") : "",
+        studentId: stored ? (stored.studentId || "Utilisateur") : "Utilisateur"
+      });
+    } else if (!stored || !stored.token) {
+      // Keep a stable token even before login
+      const t = genToken();
+      saveIdentity({ token: t, firstName: "", lastName: "", studentId: "" });
+    }
+
+    updateUI();
+  })();
+</script>
 </body>
 
 </html>
+
