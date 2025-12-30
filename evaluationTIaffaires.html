@@ -594,11 +594,6 @@ const TEXTS = [
 ];
 
 /* =========================
-   IN-MEMORY STORAGE
-========================= */
-let identityStore = null;
-
-/* =========================
    STATE
 ========================= */
 let state = {
@@ -636,6 +631,46 @@ function setShow(id, show, displayValue){
 }
 
 /* =========================
+   IDENTITY PERSISTENCE (localStorage)
+========================= */
+const IDENTITY_KEY = "ccap_eval_identity_v1";
+
+function loadIdentity(){
+  try{
+    const raw = localStorage.getItem(IDENTITY_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+function saveIdentity(obj){
+  try{
+    localStorage.setItem(IDENTITY_KEY, JSON.stringify(obj));
+  } catch {
+    // ignore storage issues
+  }
+}
+
+function clearIdentity(){
+  try{
+    localStorage.removeItem(IDENTITY_KEY);
+  } catch {
+    // ignore
+  }
+}
+
+function isLoggedIn(){
+  const id = loadIdentity();
+  return !!(id && id.token && id.studentId);
+}
+
+function tokenShort(t){
+  if (!t) return "";
+  return t.slice(0, 8);
+}
+
+/* =========================
    IDENTITY HELPERS
 ========================= */
 function getUrlParam(name){
@@ -647,20 +682,6 @@ function genToken(){
   const bytes = new Uint8Array(16);
   (crypto || window.msCrypto).getRandomValues(bytes);
   return [...bytes].map(b => b.toString(16).padStart(2,"0")).join("");
-}
-
-function loadIdentity(){ return identityStore; }
-function saveIdentity(obj){ identityStore = obj; }
-function clearIdentity(){ identityStore = null; }
-
-function isLoggedIn(){
-  const id = loadIdentity();
-  return !!(id && id.token && id.studentId);
-}
-
-function tokenShort(t){
-  if (!t) return "";
-  return t.slice(0, 8);
 }
 
 function updateLoginUI(){
@@ -764,7 +785,6 @@ function setUrl(step, token){
 }
 
 function renderByStep(step){
-  // Toggle active class (matches your CSS .stepcard / .stepcard.active)
   document.querySelectorAll(".stepcard").forEach(el => el.classList.remove("active"));
   const current = $("step" + step);
   if (current) current.classList.add("active");
@@ -1111,20 +1131,22 @@ function init(){
   const urlToken = getUrlParam("token");
   const urlStep = parseInt(getUrlParam("step") || "1", 10);
 
-  // Token resolution
+  const stored = loadIdentity();
+
   if (urlToken) {
     state.token = urlToken;
     saveIdentity({
       token: urlToken,
-      firstName: "",
-      lastName: "",
-      studentId: "Utilisateur"
+      firstName: stored ? (stored.firstName || "") : "",
+      lastName: stored ? (stored.lastName || "") : "",
+      studentId: stored ? (stored.studentId || "Utilisateur") : "Utilisateur"
     });
-  } else if (isLoggedIn()) {
-    const id = loadIdentity();
-    state.token = id.token;
+  } else if (stored && stored.token) {
+    state.token = stored.token;
   } else {
     state.token = genToken();
+    // keep token to allow resume, but not "logged in" yet
+    saveIdentity({ token: state.token, firstName: "", lastName: "", studentId: "" });
   }
 
   updateLoginUI();
@@ -1168,7 +1190,7 @@ function init(){
       }
 
       const cached = loadIdentity();
-      const token = (cached && cached.token) || state.token;
+      const token = (cached && cached.token) ? cached.token : state.token;
 
       saveIdentity({ token, firstName, lastName, studentId });
       state.token = token;
@@ -1241,5 +1263,7 @@ function init(){
 
 init();
 </script>
+
 </body>
 </html>
+
