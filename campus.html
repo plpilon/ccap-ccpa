@@ -6,161 +6,179 @@
   <link rel="icon" href="https://drive.google.com/uc?export=download&id=1i7FOimukyvfL_7VixD26O7PHzSzuSPbj">
 
   <title>CCAP Campus - Portail d'apprentissage</title>
-  <style>
-  :root{
-    --brand:#A4262C;
-    --brand-dark:#7F1D22;
-    --brand-soft:#FCE8EA;
-    --bg:#F3F4F6;
-    --surface:#FFFFFF;
-    --surface-2:#FAFAFA;
-    --text:#1F2937;
-    --muted:#6B7280;
-    --border:#D1D5DB;
-    --border-2:#E5E7EB;
+<style>
+  :root {
+    --brand: #A4262C;
+    --brand-dark: #7F1D22;
+    --brand-soft: #FCE8EA;
+    --bg: #F3F4F6;
+    --surface: #FFFFFF;
+    --surface-2: #FAFAFA;
+    --text: #1F2937;
+    --muted: #6B7280;
+    --border: #D1D5DB;
+    --border-2: #E5E7EB;
     --focus: rgba(164, 38, 44, .25);
-    --good:#0F766E;
-    --radius:14px;
+    --good: #0F766E;
+    --radius: 14px;
   }
 
-  html,body{height:100%}
-  body{
-    margin:0;
+  html, body { height: 100%; }
+  
+  body {
+    margin: 0;
     font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
     color: var(--text);
-    line-height:1.35;
+    line-height: 1.35;
     background:
       radial-gradient(900px 700px at 50% 35%, rgba(255,255,255,.92) 0%, rgba(255,255,255,0) 60%),
       linear-gradient(135deg, #f2b7b7 0%, #f6e9e9 35%, #e9f0fb 65%, #bcd2f5 100%);
     background-attachment: fixed;
   }
 
-  .ccap-topbar{
+  /* Topbar */
+  .ccap-topbar {
     background: var(--brand);
-    color:#fff;
-    height:72px;
-    display:flex;
-    align-items:center;
+    color: #fff;
+    height: 72px;
+    display: flex;
+    align-items: center;
     box-shadow: 0 2px 0 rgba(0,0,0,.08);
   }
-  .ccap-topbar .inner{
+  .ccap-topbar .inner {
     max-width: 1100px;
-    width:100%;
+    width: 100%;
     margin: 0 auto;
     padding: 0 16px;
-    display:flex;
-    align-items:center;
-    gap:14px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
   }
-  .ccap-mark{
-    width:36px;
-    height:36px;
-    border-radius:8px;
+  .ccap-mark {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
     background: rgba(255,255,255,.12);
-    display:grid;
-    place-items:center;
-    flex:0 0 auto;
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
   }
-  .ccap-title{
+  .ccap-title {
     font-size: 22px;
-    font-weight:700;
-    letter-spacing:.2px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
+    font-weight: 700;
+    letter-spacing: .2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-  .ccap-actions{
-    margin-left:auto;
-    display:flex;
-    gap:14px;
-    align-items:center;
-    font-size:14px;
-    opacity:.95;
-  }
-
-  .ccap-breadcrumb{
-    background:#F9FAFB;
-    border-bottom:1px solid var(--border);
-    font-size:13px;
-  }
-
-  .ccap-breadcrumb .inner{
-    max-width:1100px;
-    margin:0 auto;
-    padding:8px 16px;
-    display:flex;
-    align-items:center;
-    gap:6px;
-    color:var(--muted);
-  }
-
-  .ccap-breadcrumb a{
-    color:var(--brand);
-    text-decoration:none;
-    font-weight:600;
-  }
-
-  .ccap-breadcrumb a:hover{
-    text-decoration:underline;
-  }
-
-  .ccap-breadcrumb .sep{
-    color:#9CA3AF;
-  }
-
-  .ccap-breadcrumb .current{
-    color:#374151;
-    font-weight:600;
-  }
-
-  .ccap-breadcrumb .login-area{
+  .ccap-actions {
     margin-left: auto;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    font-size: 14px;
+    opacity: .95;
   }
 
-  .wrap{
+  /* Breadcrumb */
+  .ccap-breadcrumb {
+    background: #F9FAFB;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .ccap-breadcrumb .inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+  }
+  .ccap-breadcrumb a {
+    color: var(--brand);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .ccap-breadcrumb a:hover { text-decoration: underline; }
+  .ccap-breadcrumb .sep { color: #9CA3AF; }
+  .ccap-breadcrumb .current {
+    color: #374151;
+    font-weight: 600;
+  }
+  .ccap-breadcrumb .login-area { margin-left: auto; }
+
+  /* Generic UI Elements */
+  .wrap {
     max-width: 1100px;
     margin: 0 auto;
     padding: 18px 16px 48px;
   }
-
-  .pill{
-    display:inline-flex;
-    gap:8px;
-    align-items:center;
-    border:1px solid var(--border);
+  .pill {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    border: 1px solid var(--border);
     background: var(--surface);
-    border-radius:999px;
-    padding:8px 14px;
-    color:var(--text);
-    font-size:12px;
-    white-space:nowrap;
-    font-weight:600;
+    border-radius: 999px;
+    padding: 8px 14px;
+    color: var(--text);
+    font-size: 12px;
+    white-space: nowrap;
+    font-weight: 600;
   }
-  .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace}
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  a { color: var(--brand); text-decoration: none; }
+  a:hover { color: var(--brand-dark); }
+  .require-login { cursor: pointer; }
 
-  button{
-    border:1px solid transparent;
+  /* Buttons */
+  button, .btn {
+    border: 1px solid transparent;
     background: var(--brand);
-    color:#fff;
-    padding:10px 14px;
-    border-radius:12px;
-    cursor:pointer;
-    font-weight:600;
-    font-size:13px;
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .06s ease, box-shadow .12s ease;
+    user-select: none;
   }
-  button:hover{ background: var(--brand-dark); }
-  button:disabled{ cursor:not-allowed; opacity:.55; }
+  button:hover, .btn-primary:hover { background: var(--brand-dark); }
+  button:disabled { cursor: not-allowed; opacity: .55; }
+  .btn:active { transform: translateY(1px); }
 
-  .ghost{
+  .btn-primary { box-shadow: 0 8px 18px rgba(164,38,44,.18); }
+  .btn-ghost, .ghost {
     background: #fff;
     color: var(--brand);
-    border:1px solid var(--brand);
+    border: 1px solid var(--brand);
   }
-  .ghost:hover{
-    background: var(--brand-soft);
+  .btn-ghost:hover, .ghost:hover { background: var(--brand-soft); }
+
+  .btn-eval, .btn-secondary {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid var(--brand-dark);
+    color: var(--brand-dark);
+    background: white;
+  }
+  .btn-eval:hover, .btn-secondary:hover {
+    background: var(--brand-dark);
+    color: white;
   }
 
-  .modal-overlay{
+  /* Modal */
+  .modal-overlay {
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,.5);
@@ -169,7 +187,7 @@
     z-index: 1000;
     padding: 20px;
   }
-  .modal-content{
+  .modal-content {
     background: var(--surface);
     border-radius: var(--radius);
     padding: 24px;
@@ -177,47 +195,24 @@
     width: 100%;
     box-shadow: 0 20px 50px rgba(0,0,0,.3);
   }
-  .modal-content h2{
-    margin: 0 0 8px 0;
-    font-size: 24px;
-    color: var(--text);
-  }
-  .modal-content > p{
-    color: var(--muted);
-    margin: 0 0 20px 0;
-    font-size: 14px;
-  }
-  .modal-content label{
-    display: block;
-    font-size: 13px;
-    color: var(--text);
-    font-weight: 600;
-    margin: 0 0 6px 0;
-  }
-  .modal-content input{
+  .modal-content h2 { margin: 0 0 8px 0; font-size: 24px; }
+  .modal-content label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+  .modal-content input {
     width: 100%;
     box-sizing: border-box;
     padding: 10px 12px;
     border-radius: 10px;
     border: 1px solid var(--border);
     background: var(--surface-2);
-    color: var(--text);
-    outline: none;
     font-size: 14px;
     margin-bottom: 14px;
+    outline: none;
   }
-  .modal-content input:focus{
-    border-color: var(--brand);
-    box-shadow: 0 0 0 3px var(--focus);
-    background: #fff;
-  }
-  .modal-buttons{
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-  }
+  .modal-content input:focus { border-color: var(--brand); box-shadow: 0 0 0 3px var(--focus); background: #fff; }
+  .modal-buttons { display: flex; gap: 10px; margin-top: 20px; }
 
-  .console-footer{
+  /* Console Footer */
+  .console-footer {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -230,312 +225,117 @@
     display: flex;
     align-items: center;
     gap: 20px;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-family: monospace;
     border-top: 1px solid rgba(255,255,255,.1);
     z-index: 100;
   }
-  .console-footer .status-dot{
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #6B7280;
-  }
-  .console-footer .status-dot.connected{
-    background: var(--good);
-    box-shadow: 0 0 8px var(--good);
-  }
-  .console-footer strong{
-    color: #E5E7EB;
-  }
-  .console-footer button{
-    padding: 4px 10px;
-    font-size: 11px;
-    border-radius: 6px;
-    margin-left: auto;
-  }
-  .console-footer .token-display{
-    color: #10B981;
-  }
+  .console-footer .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #6B7280; }
+  .console-footer .status-dot.connected { background: var(--good); box-shadow: 0 0 8px var(--good); }
+  .console-footer button { padding: 4px 10px; font-size: 11px; margin-left: auto; }
+  .token-display { color: #10B981; }
 
-  a{color: var(--brand);}
-  a:hover{color: var(--brand-dark);}
-  
-  .require-login{
-    cursor: pointer;
-  }
-
-  :root{
-    --brand:#A4262C;
-    --brand-dark:#7F1D22;
-    --text:#1F2937;
-    --muted:#6B7280;
-    --bg:#F3F4F6;
-    --surface:#FFFFFF;
-    --border:#E5E7EB;
-  }
-
-  .hero{
-    background: linear-gradient(180deg, #fff, #fff);
+  /* Hero Section */
+  .hero {
+    background: #fff;
     border: 1px solid var(--border);
     border-radius: 16px;
     padding: 18px;
     margin: 18px 0;
     box-shadow: 0 8px 24px rgba(0,0,0,.06);
   }
-
-  .hero-inner{
-    display: grid;
-    grid-template-columns: 1.15fr .85fr;
-    gap: 18px;
-    align-items: stretch;
-  }
-
-  .hero-copy{
-    padding: 8px 6px;
-  }
-
-  .hero-kicker{
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 800;
-    letter-spacing: .02em;
-    text-transform: uppercase;
-    font-size: 12px;
-    color: var(--brand);
-    margin: 0 0 10px 0;
-  }
-
-  .hero-title{
-    margin: 0 0 10px 0;
-    font-size: clamp(22px, 2.2vw, 30px);
-    line-height: 1.15;
-    color: var(--text);
-  }
-
-  .hero-subtitle{
-    margin: 0 0 14px 0;
-    font-size: 15.5px;
-    line-height: 1.5;
-    color: var(--muted);
-    max-width: 64ch;
-  }
-
-  .hero-actions{
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin: 6px 0 10px 0;
-  }
-
-  .btn{
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 14px;
-    border-radius: 12px;
-    font-weight: 700;
-    text-decoration: none;
-    border: 1px solid transparent;
-    transition: transform .06s ease, box-shadow .12s ease, background-color .12s ease;
-    user-select: none;
-  }
-
-  .btn:active{
-    transform: translateY(1px);
-  }
-
-  .btn-primary{
-    background: var(--brand);
-    color: #fff;
-    box-shadow: 0 8px 18px rgba(164,38,44,.18);
-  }
-
-  .btn-primary:hover{
-    background: var(--brand-dark);
-    box-shadow: 0 10px 22px rgba(164,38,44,.22);
-  }
-
-  .btn-ghost{
-    background: #fff;
-    color: var(--text);
-    border-color: var(--border);
-  }
-
-  .btn-ghost:hover{
-    background: #fafafa;
-  }
-
-  .hero-meta{
-    margin: 10px 0 0 0;
-    font-size: 13px;
-    color: var(--muted);
-  }
-
-  .hero-media{
+  .hero-inner { display: grid; grid-template-columns: 1.15fr .85fr; gap: 18px; align-items: stretch; }
+  .hero-kicker { color: var(--brand); font-weight: 800; font-size: 12px; text-transform: uppercase; margin-bottom: 10px; }
+  .hero-title { font-size: clamp(22px, 2.2vw, 30px); line-height: 1.15; margin-bottom: 10px; }
+  .hero-subtitle { color: var(--muted); font-size: 15.5px; line-height: 1.5; max-width: 64ch; margin-bottom: 14px; }
+  .hero-media {
     border-radius: 14px;
     border: 1px dashed #d6d9de;
-    background: radial-gradient(circle at 30% 20%, rgba(164,38,44,.10), transparent 55%),
-                radial-gradient(circle at 70% 65%, rgba(31,41,55,.08), transparent 50%),
-                #fbfbfc;
+    background: radial-gradient(circle at 30% 20%, rgba(164,38,44,.10), transparent 55%), #fbfbfc;
     overflow: hidden;
     min-height: 180px;
     display: grid;
     place-items: center;
   }
+  @media (max-width: 860px) { .hero-inner { grid-template-columns: 1fr; } }
 
-  .hero-media-placeholder{
-    width: 100%;
-    height: 100%;
+  /* Grid Layouts */
+  #services ul {
     display: grid;
-    place-items: center;
-    color: #6b7280;
-    font-weight: 800;
-    letter-spacing: .02em;
-    text-transform: uppercase;
-    font-size: 12px;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin-top: -15px;
   }
+  @media (max-width: 600px) { #services ul { grid-template-columns: 1fr; } }
 
-  @media (max-width: 860px){
-    .hero-inner{
-      grid-template-columns: 1fr;
-    }
-    .hero-media{
-      min-height: 160px;
-    }
-  }
-
-  #services ul {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* Creates two equal columns */
-  gap: 20px;                      /* Adds space between columns and rows */
-  list-style-type: none;          /* Removes default bullet points */
-  padding: 0;
-  margin-top: -15px;
-}
-
-/* Optional: Make it responsive (1 column on mobile) */
-@media (max-width: 600px) {
-  #services ul {
-    grid-template-columns: 1fr;
-  }
-}
-
-.secondary-content {
-  display: grid;
-  /* repeat(3, 1fr) creates three equal columns */
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px;          /* Space between the columns */
-  align-items: start; /* Ensures headers align at the top even if text length varies */
-  padding: 0px;
-}
-
-/* Responsive adjustment for tablets and phones */
-@media (max-width: 1024px) {
   .secondary-content {
-    grid-template-columns: 1fr; /* Stacks them vertically on small screens */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    padding: 0;
   }
-}
+  @media (max-width: 1024px) { .secondary-content { grid-template-columns: 1fr; } }
+  .secondary-content ul { list-style: none; padding: 0; }
+  .secondary-content li { margin-bottom: 10px; }
 
-/* Optional: Clean up the lists */
-.secondary-content ul {
-  list-style: none;
-  padding: 0;
-}
+  /* Carousel & Catalogue */
+  .carousel-container { position: relative; display: flex; align-items: center; margin: 20px 0; }
+  .card-grid {
+    display: flex;
+    overflow-x: auto;
+    gap: 24px;
+    padding: 20px 0;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .card-grid::-webkit-scrollbar { display: none; }
 
-.secondary-content li {
-  margin-bottom: 10px;
-}
+  .course-card {
+    flex: 0 0 280px;
+    background: #fff;
+    border: 1px solid var(--border-2);
+    border-radius: 14px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    scroll-snap-align: start;
+  }
+  .card-content { flex-grow: 1; color: #5f6368; font-size: 0.95rem; margin-bottom: 20px; }
+  .card-meta {
+    list-style: none;
+    padding: 10px 0 0;
+    margin: 15px 0 0;
+    border-top: 1px solid #eee;
+    font-size: 13px;
+    color: var(--muted);
+  }
 
-#catalogue h2 {
-  margin-bottom: 1.5rem;
-  font-size: 1.8rem;
-  color: #333;
-}
-
-.card-grid {
-  display: grid;
-  /* This creates 3 columns but handles growth perfectly */
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 24px;
-}
-
-.course-card {
-  background: #ffffff;
-  border: 1px solid #e1e4e8;
-  border-radius: 12px;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.course-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0,0,0,0.1);
-}
-
-.course-card h3 {
-  margin-top: 0;
-  font-size: 1.25rem;
-  color: var(--brand-dark); /* Professional blue */
-  min-height: 1rem; /* Keeps titles aligned */
-}
-
-.card-content {
-  flex-grow: 1; /* Pushes the footer/button to the bottom */
-  color: #5f6368;
-  font-size: 0.95rem;
-}
-
-.card-meta {
-  list-style: none;
-  padding: 0;
-  font-size: 0.85rem;
-  margin: 15px 0;
-  border-top: 1px solid #eee;
-  padding-top: 10px;
-}
-
-.card-footer {
-  margin-top: 10px;
-}
-
-/* Button Styling */
-.btn-eval, .btn-secondary {
-  display: inline-block;
-  text-decoration: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-weight: 600;
-  text-align: center;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.btn-eval{
-  border: 1px solid var(--brand-dark);
-  color: var(--brand-dark);
-  background-color: white;
-  cursor: pointer;
-}
-
-.btn-eval:hover{
-  background: var(--brand-dark);
-    color: white;
-}
-
-.btn-secondary {
-  border: 1px solid var(--brand-dark);
-  color: var(--brand-dark);
-}
-
-.btn-secondary:hover {
-  background: var(--brand-dark);
-    color: white;
-}
-  </style>
+  /* Carousel Navigation Buttons */
+  .nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    color: var(--muted);
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+  .nav-btn:hover { background: #f8f8f8; }
+  .nav-btn.left { left: -22px; }
+  .nav-btn.right { right: -22px; }
+</style>
 </head>
 <body>
   <div class="ccap-topbar">
@@ -588,11 +388,6 @@
       <h2>Services et renseignements</h2>
       <ul>
         <li>
-          <h3>Plateforme d'apprentissage</h3>
-          <p>Connecte-toi pour générer ton jeton, reprendre une session, ou accéder aux évaluations.</p>
-          <p><a id="btnAccessPlateforme" href="#plateforme">Accéder</a></p>
-        </li>
-        <li>
           <h3>Catalogue d'apprentissage</h3>
           <p>Cours, tests, outils, capsules, et activités pratiques.</p>
           <p><a href="#catalogue">Accéder au catalogue</a></p>
@@ -610,48 +405,46 @@
       </ul>
     </section>
 
-    <section id="catalogue">
-  <h2>Catalogue d'apprentissage</h2>
+<section id="catalogue">
+      <h2>Catalogue d'apprentissage</h2>
+      <div class="carousel-container">
+        <button class="nav-btn left" id="scrollLeft"><span>&#10094;</span></button>
+        
+        <div class="card-grid" id="cardGrid">
+          <article class="course-card">
+            <h3>Évaluation des compétences</h3>
+            <div class="card-content">
+              <p>Test de placement en 3 étapes : vitesse de frappe, Word, simulation.</p>
+              <ul class="card-meta">
+                <li><strong>Durée:</strong> 50 min</li>
+                <li>Compte requis</li>
+              </ul>
+            </div>
+            <div class="card-footer"><a href="#" id="btnGoEval" class="btn-secondary">Accéder</a></div>
+          </article>
 
-  <div class="card-grid">
-    <article class="course-card">
-      <h3>Évaluation des compétences</h3>
-      <div class="card-content">
-        <p>Test de placement en 3 étapes : vitesse de frappe, Word, simulation.</p>
-        <ul class="card-meta">
-          <li><strong>Durée:</strong> 50 min</li>
-          <li>Compte requis</li>
-        </ul>
-      </div>
-      <div class="card-footer">
-    <div class="card-footer">
-    <a href="#" id="btnGoEval" class="btn-secondary">
-      Accéder à l'évaluation
-    </a>  
-    </div>
-    </article>
+          <article class="course-card">
+            <h3>Microsoft Excel 365</h3>
+            <div class="card-content"><p>Filtres, tableaux, formules, tri et mise en forme efficace.</p></div>
+            <div class="card-footer"><a href="#" class="require-login btn-secondary" data-page="excel">Ouvrir</a></div>
+          </article>
 
-    <article class="course-card">
-      <h3>Microsoft Excel 365</h3>
-      <div class="card-content">
-        <p>Filtres, tableaux, formules, tri, validation, et mise en forme efficace.</p>
-      </div>
-      <div class="card-footer">
-        <a href="#" class="require-login btn-secondary" data-page="excel">Ouvrir le cours</a>
-      </div>
-    </article>
+          <article class="course-card">
+            <h3>Rédaction Word</h3>
+            <div class="card-content"><p>Styles, sections, en-têtes et tables des matières professionnelles.</p></div>
+            <div class="card-footer"><a href="#" class="require-login btn-secondary" data-page="word">Ouvrir</a></div>
+          </article>
 
-    <article class="course-card">
-      <h3>Rédaction et styles Word</h3>
-      <div class="card-content">
-        <p>Styles, listes, sections, en-têtes et pieds de page, table des matières.</p>
+          <article class="course-card">
+            <h3>Productivité 365</h3>
+            <div class="card-content"><p>Gagner du temps avec les raccourcis et l'automatisation légère.</p></div>
+            <div class="card-footer"><a href="#" class="require-login btn-secondary" data-page="prod">Ouvrir</a></div>
+          </article>
+        </div>
+
+        <button class="nav-btn right" id="scrollRight"><span>&#10095;</span></button>
       </div>
-      <div class="card-footer">
-        <a href="#" class="require-login btn-secondary" data-page="word">Ouvrir le cours</a>
-      </div>
-    </article>
-  </div>
-</section>
+    </section>
 
    <div class="secondary-content">
   <section id="parcours">
@@ -724,189 +517,89 @@
     </div>
   </div>
 
-  <script>
-    // =========================
-    // IN-MEMORY STORAGE
-    // =========================
+<script>
     let identityStore = null;
-
+    let scrollInterval;
+    const scrollSpeed = 15;
     const EVAL_URL = "https://plpilon.github.io/ccap-ccpa/evaluationTIaffaires.html";
 
-    // =========================
     // Helpers
-    // =========================
-    function getUrlParam(name){
-      return new URLSearchParams(location.search).get(name);
-    }
-
-    function genToken(){
-      if (crypto && crypto.randomUUID) return crypto.randomUUID();
-      const bytes = new Uint8Array(16);
-      (crypto || window.msCrypto).getRandomValues(bytes);
-      return [...bytes].map(b => b.toString(16).padStart(2,"0")).join("");
-    }
-
-    function loadIdentity(){
-      return identityStore;
-    }
-
-    function saveIdentity(obj){
-      identityStore = obj;
-    }
-
-    function clearIdentity(){
-      identityStore = null;
-    }
-
-    function updateUI(){
+    const loadIdentity = () => identityStore;
+    const saveIdentity = (obj) => { identityStore = obj; };
+    const clearIdentity = () => { identityStore = null; };
+    const isLoggedIn = () => !!(identityStore && identityStore.token);
+    
+    const updateUI = () => {
       const id = loadIdentity();
-      const isLoggedIn = !!(id && id.token && id.studentId);
+      const logged = isLoggedIn();
+      
+      document.getElementById("btnLogin").style.display = logged ? "none" : "block";
+      document.getElementById("loginPill").style.display = logged ? "inline-flex" : "none";
+      if(logged) document.getElementById("pillToken").textContent = id.token.slice(0,8);
 
-      // Breadcrumb area
-      const btnLogin = document.getElementById("btnLogin");
-      const loginPill = document.getElementById("loginPill");
-      const pillToken = document.getElementById("pillToken");
+      document.getElementById("statusDot").classList.toggle("connected", logged);
+      document.getElementById("consoleStatus").textContent = logged ? "connecté" : "non connecté";
+      document.getElementById("consoleTokenArea").style.display = logged ? "inline" : "none";
+      document.getElementById("btnConsoleAction").style.display = logged ? "block" : "none";
+      if(logged) document.getElementById("consoleToken").textContent = id.token.slice(0,8);
+    };
 
-      if (isLoggedIn) {
-        btnLogin.style.display = "none";
-        loginPill.style.display = "inline-flex";
-        pillToken.textContent = id.token.slice(0, 8);
-      } else {
-        btnLogin.style.display = "inline-block";
-        loginPill.style.display = "none";
+    const openModal = () => { document.getElementById("loginModal").hidden = false; };
+    const closeModal = () => { document.getElementById("loginModal").hidden = true; };
+
+    // Carousel Logic
+    const startScrolling = (grid, dir) => {
+      clearInterval(scrollInterval);
+      grid.style.scrollBehavior = 'auto';
+      scrollInterval = setInterval(() => { grid.scrollLeft += dir * scrollSpeed; }, 16);
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const grid = document.getElementById('cardGrid');
+      const leftBtn = document.getElementById('scrollLeft');
+      const rightBtn = document.getElementById('scrollRight');
+
+      // Carousel events
+      if(grid && leftBtn && rightBtn) {
+        leftBtn.addEventListener('mousedown', () => startScrolling(grid, -1));
+        rightBtn.addEventListener('mousedown', () => startScrolling(grid, 1));
+        window.addEventListener('mouseup', () => { clearInterval(scrollInterval); grid.style.scrollBehavior = 'smooth'; });
+        
+        leftBtn.addEventListener('click', () => grid.scrollBy({left: -320, behavior: 'smooth'}));
+        rightBtn.addEventListener('click', () => grid.scrollBy({left: 320, behavior: 'smooth'}));
       }
 
-      // Console footer
-      const statusDot = document.getElementById("statusDot");
-      const consoleStatus = document.getElementById("consoleStatus");
-      const consoleTokenArea = document.getElementById("consoleTokenArea");
-      const consoleToken = document.getElementById("consoleToken");
-      const btnConsoleAction = document.getElementById("btnConsoleAction");
+      // Login events
+      document.getElementById("btnLogin").onclick = openModal;
+      document.getElementById("btnCloseModal").onclick = closeModal;
+      document.getElementById("btnConsoleAction").onclick = () => { clearIdentity(); updateUI(); };
 
-      if (isLoggedIn) {
-        statusDot.classList.add("connected");
-        consoleStatus.textContent = "connecté";
-        consoleTokenArea.style.display = "inline";
-        consoleToken.textContent = id.token.slice(0, 8);
-        btnConsoleAction.style.display = "inline-block";
-        btnConsoleAction.textContent = "Déconnexion";
-      } else {
-        statusDot.classList.remove("connected");
-        consoleStatus.textContent = "non connecté";
-        consoleTokenArea.style.display = "none";
-        btnConsoleAction.style.display = "none";
-      }
-    }
-
-    function openModal(){
-      document.getElementById("loginModal").hidden = false;
-      const cached = loadIdentity();
-      if (cached){
-        document.getElementById("firstName").value = cached.firstName || "";
-        document.getElementById("lastName").value = cached.lastName || "";
-        document.getElementById("studentId").value = cached.studentId || "";
-      }
-      document.getElementById("studentId").focus();
-    }
-
-    function closeModal(){
-      document.getElementById("loginModal").hidden = true;
-    }
-
-    function isLoggedIn(){
-      const id = loadIdentity();
-      return !!(id && id.token && id.studentId);
-    }
-
-    function getTokenParam(){
-      const id = loadIdentity();
-      return id && id.token ? `token=${encodeURIComponent(id.token)}` : '';
-    }
-
-    // =========================
-    // Events
-    // =========================
-    document.getElementById("btnLogin").addEventListener("click", openModal);
-    document.getElementById("loginPill").addEventListener("click", openModal);
-    document.getElementById("btnCloseModal").addEventListener("click", closeModal);
-
-    document.getElementById("loginForm").addEventListener("submit", (e)=>{
-      e.preventDefault();
-
-      const firstName = String(document.getElementById("firstName").value || "").trim();
-      const lastName  = String(document.getElementById("lastName").value || "").trim();
-      const studentId = String(document.getElementById("studentId").value || "").trim();
-
-      if (!studentId){
-        alert("Ajoute au moins un numéro étudiant ou un courriel.");
-        return;
-      }
-
-      const cached = loadIdentity();
-      const token = (cached && cached.token) || genToken();
-
-      saveIdentity({ token, firstName, lastName, studentId });
-      updateUI();
-      closeModal();
-
-      document.getElementById("evalHint").textContent = "✓ Session prête";
-    });
-
-    document.getElementById("btnGoEval").addEventListener("click", ()=>{
-      if (!isLoggedIn()) {
-        openModal();
-        return;
-      }
-
-      const id = loadIdentity();
-      const url = `${EVAL_URL}?step=1&token=${encodeURIComponent(id.token)}`;
-      window.location.href = url;
-    });
-
-    document.getElementById("btnConsoleAction").addEventListener("click", ()=>{
-      if (isLoggedIn()) {
-        clearIdentity();
-        updateUI();
-        document.getElementById("evalHint").textContent = "";
-      }
-    });
-    document.getElementById("btnAccessPlateforme").addEventListener("click", (e) => {
-    e.preventDefault();
-    if (!isLoggedIn()) {
-        openModal();
-    }
-  // If logged in, do nothing (just scroll to #plateforme anchor)
-});
-    // Handle all links that require login
-    document.querySelectorAll('.require-login').forEach(link => {
-      link.addEventListener('click', (e) => {
+      document.getElementById("loginForm").onsubmit = (e) => {
         e.preventDefault();
-        if (!isLoggedIn()) {
-          openModal();
-          return;
-        }
-        const page = link.dataset.page || link.getAttribute('href').replace('#', '');
-        const tokenParam = getTokenParam();
-        const url = `${page}.html?${tokenParam}`;
-        alert(`Navigation vers: ${url}\n(Ces pages n'existent pas encore dans cette démo)`);
+        saveIdentity({
+          token: Math.random().toString(36).substr(2, 9),
+          studentId: document.getElementById("studentId").value
+        });
+        updateUI();
+        closeModal();
+      };
+
+      // Evaluation Link
+      document.getElementById("btnGoEval").onclick = (e) => {
+        e.preventDefault();
+        if(!isLoggedIn()) return openModal();
+        window.location.href = `${EVAL_URL}?token=${identityStore.token}`;
+      };
+
+      // All other protected links
+      document.querySelectorAll('.require-login').forEach(link => {
+        link.onclick = (e) => {
+          e.preventDefault();
+          if(!isLoggedIn()) return openModal();
+          alert("Navigation vers le cours (Démo uniquement)");
+        };
       });
     });
-
-    // Initialize - check for token in URL
-    (function init(){
-      const urlToken = getUrlParam('token');
-      if (urlToken) {
-        // Restore session from URL parameter
-        const cached = loadIdentity() || {};
-        saveIdentity({
-          token: urlToken,
-          firstName: cached.firstName || "",
-          lastName: cached.lastName || "",
-          studentId: cached.studentId || "Utilisateur"
-        });
-      }
-      updateUI();
-    })();
   </script>
 </body>
 </html>
