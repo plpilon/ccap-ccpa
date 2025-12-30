@@ -410,7 +410,7 @@
 
   <nav class="ccap-breadcrumb" aria-label="Fil d'Ariane">
     <div class="inner">
-      <a href="#" onclick="history.back(); return false;">CCAP Campus</a>
+      <a href="javascript:history.back()">CCAP Campus</a>
       <span class="sep">›</span>
       <span class="current">Évaluation des compétences en technologies d'affaires</span>
       <div class="login-area">
@@ -494,12 +494,14 @@
     <div class="stepcard card" id="step2">
       <h2>Étape 2</h2>
 
-      <div class="status" id="step2Status">
-        Token: <span class="mono" id="tokenStep2"></span>
-        <div class="hr"></div>
-        Temps restant: <span class="mono" id="step2Countdown">1 200</span> secondes
-        <div class="hr"></div>
+      <div hidden class="status" id="step2Status">
+        <div >Token: <span class="mono" id="tokenStep2"></span></div>
+        
+        <div class="hr"></div></div>
+        <p>Télécharge et corrige le document Word suivant. Ajoute ton nom au nom du fichier avant de la soumettre. Tu as 20 minutes.</p>
         <a id="step2DocLink" href="ETAPE2_DOCUMENT_A_CORRIGER.docx" download>Télécharger le document Word à corriger</a>
+        <p>Temps restant: <span class="mono" id="step2Countdown">1 200</span> secondes</p>
+      
       </div>
 
       <div class="card" style="margin-top:12px">
@@ -509,10 +511,10 @@
           <input id="step2File" type="file" accept=".docx" />
         </div>
         <div class="btns">
-          <button id="btnUploadStep2">Soumettre mon fichier</button>
+          <button id="btnUploadStep2">Soumettre le fichier</button>
           <button id="btnToStep3" class="ghost" disabled>Aller à l'étape 3</button>
         </div>
-        <div class="status" id="step2UploadStatus">Quand tu soumets, l'étape 3 sera débloquée.</div>
+        <div class="status" id="step2UploadStatus">Lorsque le fichier aura été soumis, l'étape 3 sera débloquée.</div>
       </div>
 
       <div class="btns" style="margin-top:12px">
@@ -620,6 +622,20 @@ let step2TickId = null;
 let step2Timeouts = [];
 
 /* =========================
+   DOM HELPERS (null-safe)
+========================= */
+function $(id){ return document.getElementById(id); }
+function setText(id, value){
+  const el = $(id);
+  if (el) el.textContent = value;
+}
+function setShow(id, show, displayValue){
+  const el = $(id);
+  if (!el) return;
+  el.style.display = show ? (displayValue || "inline-block") : "none";
+}
+
+/* =========================
    IDENTITY HELPERS
 ========================= */
 function getUrlParam(name){
@@ -633,17 +649,9 @@ function genToken(){
   return [...bytes].map(b => b.toString(16).padStart(2,"0")).join("");
 }
 
-function loadIdentity(){
-  return identityStore;
-}
-
-function saveIdentity(obj){
-  identityStore = obj;
-}
-
-function clearIdentity(){
-  identityStore = null;
-}
+function loadIdentity(){ return identityStore; }
+function saveIdentity(obj){ identityStore = obj; }
+function clearIdentity(){ identityStore = null; }
 
 function isLoggedIn(){
   const id = loadIdentity();
@@ -660,56 +668,52 @@ function updateLoginUI(){
   const loggedIn = isLoggedIn();
 
   // Breadcrumb area
-  const btnLogin = document.getElementById("btnLogin");
-  const loginPill = document.getElementById("loginPill");
-  const breadcrumbToken = document.getElementById("breadcrumbToken");
+  const btnLogin = $("btnLogin");
+  const loginPill = $("loginPill");
 
-  if (loggedIn) {
-    btnLogin.style.display = "none";
-    loginPill.style.display = "inline-flex";
-    breadcrumbToken.textContent = tokenShort(id.token);
-  } else {
-    btnLogin.style.display = "inline-block";
-    loginPill.style.display = "none";
-  }
+  if (btnLogin) btnLogin.style.display = loggedIn ? "none" : "inline-block";
+  if (loginPill) loginPill.style.display = loggedIn ? "inline-flex" : "none";
+  setText("breadcrumbToken", loggedIn && id ? tokenShort(id.token) : "");
 
   // Console footer
-  const statusDot = document.getElementById("statusDot");
-  const consoleStatus = document.getElementById("consoleStatus");
-  const consoleTokenArea = document.getElementById("consoleTokenArea");
-  const consoleToken = document.getElementById("consoleToken");
-  const btnConsoleAction = document.getElementById("btnConsoleAction");
+  const statusDot = $("statusDot");
+  const consoleStatus = $("consoleStatus");
+  const consoleTokenArea = $("consoleTokenArea");
+  const btnConsoleAction = $("btnConsoleAction");
 
-  if (loggedIn) {
-    statusDot.classList.add("connected");
-    consoleStatus.textContent = "connecté";
-    consoleTokenArea.style.display = "inline";
-    consoleToken.textContent = tokenShort(id.token);
-    btnConsoleAction.style.display = "inline-block";
+  if (statusDot) statusDot.classList.toggle("connected", loggedIn);
+  if (consoleStatus) consoleStatus.textContent = loggedIn ? "connecté" : "non connecté";
+  if (consoleTokenArea) consoleTokenArea.style.display = loggedIn ? "inline" : "none";
+  setText("consoleToken", loggedIn && id ? tokenShort(id.token) : "");
+
+  if (btnConsoleAction){
+    btnConsoleAction.style.display = loggedIn ? "inline-block" : "none";
     btnConsoleAction.textContent = "Déconnexion";
-  } else {
-    statusDot.classList.remove("connected");
-    consoleStatus.textContent = "non connecté";
-    consoleTokenArea.style.display = "none";
-    btnConsoleAction.style.display = "none";
   }
-
- 
 }
 
 function openModal(){
-  document.getElementById("loginModal").hidden = false;
+  const modal = $("loginModal");
+  if (!modal) return;
+  modal.hidden = false;
+
   const cached = loadIdentity();
   if (cached){
-    document.getElementById("modalFirstName").value = cached.firstName || "";
-    document.getElementById("modalLastName").value = cached.lastName || "";
-    document.getElementById("modalStudentId").value = cached.studentId || "";
+    const fn = $("modalFirstName");
+    const ln = $("modalLastName");
+    const sid = $("modalStudentId");
+    if (fn) fn.value = cached.firstName || "";
+    if (ln) ln.value = cached.lastName || "";
+    if (sid) sid.value = cached.studentId || "";
   }
-  document.getElementById("modalStudentId").focus();
+
+  const sid = $("modalStudentId");
+  if (sid) sid.focus();
 }
 
 function closeModal(){
-  document.getElementById("loginModal").hidden = true;
+  const modal = $("loginModal");
+  if (modal) modal.hidden = true;
 }
 
 /* =========================
@@ -737,22 +741,20 @@ function startStep2Timer(){
   step2Timeouts.push(setTimeout(() => {
     if (state.step === 2) {
       alert("Temps écoulé. Soumets immédiatement ton fichier.");
-      const st = document.getElementById("step2UploadStatus");
-      if (st) st.textContent = "Temps écoulé. Soumets immédiatement ton fichier.";
+      setText("step2UploadStatus", "Temps écoulé. Soumets immédiatement ton fichier.");
     }
   }, STEP2_LIMIT_SEC * 1000));
 
   step2TickId = setInterval(() => {
     const elapsed = Math.floor((Date.now() - step2StartMs) / 1000);
     const remaining = Math.max(0, STEP2_LIMIT_SEC - elapsed);
-    const el = document.getElementById("step2Countdown");
-    if (el) el.textContent = String(remaining);
+    setText("step2Countdown", String(remaining));
     if (remaining <= 0) clearStep2Timer();
   }, 250);
 }
 
 /* =========================
-   HELPERS
+   NAV + RENDER
 ========================= */
 function setUrl(step, token){
   const u = new URL(location.href);
@@ -761,11 +763,41 @@ function setUrl(step, token){
   history.replaceState({}, "", u.toString());
 }
 
+function renderByStep(step){
+  // Toggle active class (matches your CSS .stepcard / .stepcard.active)
+  document.querySelectorAll(".stepcard").forEach(el => el.classList.remove("active"));
+  const current = $("step" + step);
+  if (current) current.classList.add("active");
+
+  if (step === 2){
+    setText("tokenStep2", state.token);
+    startStep2Timer();
+  } else {
+    clearStep2Timer();
+  }
+
+  if (step === 3){
+    setText("tokenStep3", state.token);
+  }
+
+  updateLoginUI();
+}
+
+function navigateToStep(step){
+  state.step = step;
+  setUrl(step, state.token);
+  renderByStep(step);
+}
+
+/* =========================
+   HELPERS
+========================= */
 function clamp(n, a, b){ return Math.min(b, Math.max(a, n)); }
 function round1(x){ return Math.round(x * 10) / 10; }
 
 function setStatus(msg, cls){
-  const el = document.getElementById("statusBox");
+  const el = $("statusBox");
+  if (!el) return;
   el.classList.remove("ok","warn","bad");
   if (cls) el.classList.add(cls);
   el.textContent = msg;
@@ -815,18 +847,19 @@ function computeMetrics(targetText, typedText, durationSec){
 
 function setTargetText(index){
   state.currentTextIndex = index;
-  const meta = document.getElementById("targetMeta");
-  const text = document.getElementById("targetText");
-  meta.textContent = `Texte ${index + 1} sur 3`;
-  text.textContent = TEXTS[index];
+  setText("targetMeta", `Texte ${index + 1} sur 3`);
+  setText("targetText", TEXTS[index]);
 }
 
+/* =========================
+   TIMERS + ATTEMPTS
+========================= */
 function startGlobalTimer(){
   state.globalStartMs = Date.now();
   state.globalTimerId = setInterval(()=>{
     const elapsed = getElapsedSec(state.globalStartMs);
     const remaining = clamp(GLOBAL_LIMIT_SEC - elapsed, 0, GLOBAL_LIMIT_SEC);
-    document.getElementById("kGlobalTime").textContent = String(remaining);
+    setText("kGlobalTime", String(remaining));
     if (elapsed >= GLOBAL_LIMIT_SEC){
       stopAttemptIfRunning(true);
       autoSubmit("time_limit");
@@ -847,20 +880,24 @@ function startAttempt(){
 
   state.attemptActive = true;
   state.attemptStartMs = Date.now();
-  document.getElementById("typingInput").disabled = false;
-  document.getElementById("typingInput").value = "";
-  document.getElementById("typingInput").focus();
 
-  document.getElementById("btnFinish").disabled = false;
-  document.getElementById("btnForceSubmit").disabled = false;
-  document.getElementById("btnNext").disabled = true;
+  const input = $("typingInput");
+  if (input){
+    input.disabled = false;
+    input.value = "";
+    input.focus();
+  }
+
+  if ($("btnFinish")) $("btnFinish").disabled = false;
+  if ($("btnForceSubmit")) $("btnForceSubmit").disabled = false;
+  if ($("btnNext")) $("btnNext").disabled = true;
 
   setStatus(`Essai ${state.attemptsCompleted + 1} en cours.`, "warn");
 
   state.attemptTickId = setInterval(()=>{
     const elapsed = getElapsedSec(state.attemptStartMs);
     const remaining = clamp(ATTEMPT_DURATION_SEC - elapsed, 0, ATTEMPT_DURATION_SEC);
-    document.getElementById("kAttemptTime").textContent = String(remaining);
+    setText("kAttemptTime", String(remaining));
     if (elapsed >= ATTEMPT_DURATION_SEC){
       finishAttempt("time_up");
     }
@@ -874,7 +911,7 @@ function stopAttemptIfRunning(forceFinish){
     clearInterval(state.attemptTickId);
     state.attemptTickId = null;
     state.attemptActive = false;
-    document.getElementById("typingInput").disabled = true;
+    if ($("typingInput")) $("typingInput").disabled = true;
   }
 }
 
@@ -888,7 +925,7 @@ function finishAttempt(reason){
   const actualDuration = clamp(Math.floor((attemptEndMs - state.attemptStartMs)/1000), 1, ATTEMPT_DURATION_SEC);
 
   const target = TEXTS[state.currentTextIndex];
-  const typed = document.getElementById("typingInput").value;
+  const typed = ($("typingInput") && $("typingInput").value) ? $("typingInput").value : "";
 
   const metrics = computeMetrics(target, typed, actualDuration);
 
@@ -905,12 +942,13 @@ function finishAttempt(reason){
 
   state.backspaces = 0;
   state.attemptActive = false;
-  document.getElementById("typingInput").disabled = true;
-  document.getElementById("btnFinish").disabled = true;
 
-  document.getElementById("kAttempt").textContent = `${state.attemptsCompleted} / ${MAX_ATTEMPTS}`;
+  if ($("typingInput")) $("typingInput").disabled = true;
+  if ($("btnFinish")) $("btnFinish").disabled = true;
+
+  setText("kAttempt", `${state.attemptsCompleted} / ${MAX_ATTEMPTS}`);
   const best = bestAttempt();
-  document.getElementById("kBest").textContent = best ? String(best.netWpm.toFixed(1)) : "0.0";
+  setText("kBest", best ? String(best.netWpm.toFixed(1)) : "0.0");
 
   setStatus(
     `Essai ${state.attemptsCompleted} terminé.\nNet WPM: ${metrics.netWpm.toFixed(1)}\nPrécision: ${metrics.accuracyPct.toFixed(1)}%\nErreurs: ${metrics.errors}\nDurée: ${metrics.durationSec}s`,
@@ -918,13 +956,16 @@ function finishAttempt(reason){
   );
 
   if (state.attemptsCompleted >= MAX_ATTEMPTS){
-    document.getElementById("btnNext").disabled = true;
+    if ($("btnNext")) $("btnNext").disabled = true;
     autoSubmit("attempt_limit");
   } else {
-    document.getElementById("btnNext").disabled = false;
+    if ($("btnNext")) $("btnNext").disabled = false;
   }
 }
 
+/* =========================
+   SUBMISSION
+========================= */
 function buildPayload(reason){
   const best = bestAttempt();
   const id = loadIdentity();
@@ -983,35 +1024,10 @@ async function autoSubmit(reason){
 
   navigateToStep(2);
 }
-function navigateToStep(step) {
-  state.step = step;
-  setUrl(step, state.token);
-  renderByStep(step); // This line is crucial to trigger the UI change
-}
 
-function renderByStep(step) {
-  // Ensure your HTML sections have these IDs: id="step1", id="step2", etc.
-  const sections = ["step1", "step2", "step3"];
-  sections.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.style.display = (id === "step" + step) ? "block" : "none";
-  });
-
-  if (step === 2) {
-    const tokenEl = document.getElementById("tokenStep2");
-    if (tokenEl) tokenEl.textContent = state.token;
-    startStep2Timer();
-  } else {
-    clearStep2Timer();
-  }
-
-  if (step === 3) {
-    const tokenEl = document.getElementById("tokenStep3");
-    if (tokenEl) tokenEl.textContent = state.token;
-  }
-}
-
-
+/* =========================
+   STEP 2 FILE UPLOAD
+========================= */
 function readFileAsBase64(file){
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -1026,8 +1042,10 @@ function readFileAsBase64(file){
 }
 
 async function submitStep2File(){
-  const fileInput = document.getElementById("step2File");
-  const statusEl = document.getElementById("step2UploadStatus");
+  const fileInput = $("step2File");
+  const statusEl = $("step2UploadStatus");
+
+  if (!statusEl) return;
 
   if (!ENDPOINT_URL){
     statusEl.textContent = "ENDPOINT_URL n'est pas configuré.";
@@ -1079,19 +1097,21 @@ async function submitStep2File(){
     });
 
     statusEl.textContent = "Soumission envoyée. Étape 3 débloquée.";
-    const bTo3 = document.getElementById("btnToStep3");
-    if (bTo3) bTo3.disabled = false;
+    if ($("btnToStep3")) $("btnToStep3").disabled = false;
     clearStep2Timer();
   } catch (err){
     statusEl.textContent = "Erreur lors de la soumission. Réessaie.";
   }
 }
 
+/* =========================
+   INIT
+========================= */
 function init(){
   const urlToken = getUrlParam("token");
   const urlStep = parseInt(getUrlParam("step") || "1", 10);
 
-  // Check for token in URL first
+  // Token resolution
   if (urlToken) {
     state.token = urlToken;
     saveIdentity({
@@ -1111,103 +1131,107 @@ function init(){
 
   window.addEventListener("blur", ()=>{ state.focusLost++; });
 
-  const typingInput = document.getElementById("typingInput");
-  typingInput.addEventListener("keydown", (e)=>{
-    if (e.key === "Backspace") state.backspaces++;
-    if ((e.ctrlKey || e.metaKey) && (e.key.toLowerCase() === "v")) {
+  const typingInput = $("typingInput");
+  if (typingInput){
+    typingInput.addEventListener("keydown", (e)=>{
+      if (e.key === "Backspace") state.backspaces++;
+      if ((e.ctrlKey || e.metaKey) && (e.key.toLowerCase() === "v")) {
+        e.preventDefault();
+        return false;
+      }
+    });
+    typingInput.addEventListener("paste", (e)=>{
       e.preventDefault();
       return false;
-    }
-  });
-  typingInput.addEventListener("paste", (e)=>{
-    e.preventDefault();
-    return false;
-  });
+    });
+  }
 
   setTargetText(0);
 
   // Login handlers
-  document.getElementById("btnLogin").addEventListener("click", openModal);
-  document.getElementById("loginPill").addEventListener("click", openModal);
-  document.getElementById("btnCloseModal").addEventListener("click", closeModal);
+  if ($("btnLogin")) $("btnLogin").addEventListener("click", openModal);
+  if ($("loginPill")) $("loginPill").addEventListener("click", openModal);
+  if ($("btnCloseModal")) $("btnCloseModal").addEventListener("click", closeModal);
 
-  document.getElementById("loginForm").addEventListener("submit", (e)=>{
-    e.preventDefault();
+  const loginForm = $("loginForm");
+  if (loginForm){
+    loginForm.addEventListener("submit", (e)=>{
+      e.preventDefault();
 
-    const firstName = String(document.getElementById("modalFirstName").value || "").trim();
-    const lastName  = String(document.getElementById("modalLastName").value || "").trim();
-    const studentId = String(document.getElementById("modalStudentId").value || "").trim();
+      const firstName = String(($("modalFirstName") && $("modalFirstName").value) || "").trim();
+      const lastName  = String(($("modalLastName") && $("modalLastName").value) || "").trim();
+      const studentId = String(($("modalStudentId") && $("modalStudentId").value) || "").trim();
 
-    if (!studentId){
-      alert("Ajoute au moins un numéro étudiant ou un courriel.");
-      return;
-    }
+      if (!studentId){
+        alert("Ajoute au moins un numéro étudiant ou un courriel.");
+        return;
+      }
 
-    const cached = loadIdentity();
-    const token = (cached && cached.token) || state.token;
+      const cached = loadIdentity();
+      const token = (cached && cached.token) || state.token;
 
-    saveIdentity({ token, firstName, lastName, studentId });
-    state.token = token;
-    updateLoginUI();
-    closeModal();
-  });
-
-  document.getElementById("btnConsoleAction").addEventListener("click", ()=>{
-    if (isLoggedIn()) {
-      clearIdentity();
+      saveIdentity({ token, firstName, lastName, studentId });
+      state.token = token;
       updateLoginUI();
-    }
-  });
+      closeModal();
+    });
+  }
+
+  if ($("btnConsoleAction")){
+    $("btnConsoleAction").addEventListener("click", ()=>{
+      if (isLoggedIn()) {
+        clearIdentity();
+        updateLoginUI();
+      }
+    });
+  }
 
   // Step 1 buttons
-  document.getElementById("btnStart").addEventListener("click", ()=>{
-    if (state.globalStartMs) return;
+  if ($("btnStart")){
+    $("btnStart").addEventListener("click", ()=>{
+      if (state.globalStartMs) return;
 
-    if (!isLoggedIn()){
-      alert("Connecte-toi d'abord via le bouton en haut.");
-      openModal();
-      return;
-    }
+      if (!isLoggedIn()){
+        alert("Connecte-toi d'abord via le bouton en haut.");
+        openModal();
+        return;
+      }
 
-    document.getElementById("btnStart").disabled = true;
-    document.getElementById("btnForceSubmit").disabled = false;
+      $("btnStart").disabled = true;
+      if ($("btnForceSubmit")) $("btnForceSubmit").disabled = false;
 
-    document.getElementById("kAttempt").textContent = `0 / ${MAX_ATTEMPTS}`;
-    document.getElementById("kAttemptTime").textContent = String(ATTEMPT_DURATION_SEC);
-    document.getElementById("kGlobalTime").textContent = String(GLOBAL_LIMIT_SEC);
+      setText("kAttempt", `0 / ${MAX_ATTEMPTS}`);
+      setText("kAttemptTime", String(ATTEMPT_DURATION_SEC));
+      setText("kGlobalTime", String(GLOBAL_LIMIT_SEC));
 
-    startGlobalTimer();
-    startAttempt();
-  });
+      startGlobalTimer();
+      startAttempt();
+    });
+  }
 
-  document.getElementById("btnFinish").addEventListener("click", ()=>{
-    finishAttempt("manual_finish");
-  });
+  if ($("btnFinish")) $("btnFinish").addEventListener("click", ()=> finishAttempt("manual_finish"));
 
-  document.getElementById("btnNext").addEventListener("click", ()=>{
-    if (state.attemptsCompleted >= MAX_ATTEMPTS) return;
-    document.getElementById("typingInput").value = "";
-    document.getElementById("kAttemptTime").textContent = String(ATTEMPT_DURATION_SEC);
-    startAttempt();
-  });
+  if ($("btnNext")){
+    $("btnNext").addEventListener("click", ()=>{
+      if (state.attemptsCompleted >= MAX_ATTEMPTS) return;
+      if ($("typingInput")) $("typingInput").value = "";
+      setText("kAttemptTime", String(ATTEMPT_DURATION_SEC));
+      startAttempt();
+    });
+  }
 
-  document.getElementById("btnForceSubmit").addEventListener("click", ()=>{
-    stopAttemptIfRunning(true);
-    autoSubmit("manual_submit");
-  });
+  if ($("btnForceSubmit")){
+    $("btnForceSubmit").addEventListener("click", ()=>{
+      stopAttemptIfRunning(true);
+      autoSubmit("manual_submit");
+    });
+  }
 
   // Step navigation
-  const bTo3 = document.getElementById("btnToStep3");
-  if (bTo3) bTo3.addEventListener("click", ()=> navigateToStep(3));
-
-  const bBack1 = document.getElementById("btnBackToStep1");
-  if (bBack1) bBack1.addEventListener("click", ()=> navigateToStep(1));
-
-  const bBack2 = document.getElementById("btnBackToStep2");
-  if (bBack2) bBack2.addEventListener("click", ()=> navigateToStep(2));
-
-  const btnUpload = document.getElementById("btnUploadStep2");
-  if (btnUpload) btnUpload.addEventListener("click", submitStep2File);
+  if ($("btnToStep3")) $("btnToStep3").addEventListener("click", ()=> navigateToStep(3));
+  if ($("btnBackToStep1")) $("btnBackToStep1").addEventListener("click", ()=> navigateToStep(1));
+  if ($("btnBackToStep2")) $("btnBackToStep2").addEventListener("click", ()=> navigateToStep(2));
+  if ($("btnUploadStep2")) $("btnUploadStep2").addEventListener("click", submitStep2File);
 
   // Apply URL step
   state.step = [1,2,3].includes(urlStep) ? urlStep : 1;
@@ -1219,9 +1243,3 @@ init();
 </script>
 </body>
 </html>
-
-
-
-
-
-
