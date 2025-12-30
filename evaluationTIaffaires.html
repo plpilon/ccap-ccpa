@@ -987,11 +987,8 @@ async function autoSubmit(reason){
 function navigateToStep(step){
   state.step = step;
   setUrl(step, state.token);
-  renderByStep(step);
 }
 
-function renderByStep(step){
-  showStep(step);
 
   if (step === 2){
     document.getElementById("tokenStep2").textContent = state.token;
@@ -1212,5 +1209,6 @@ init();
 </script>
 </body>
 </html>
+
 
 
