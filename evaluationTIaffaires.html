@@ -410,7 +410,7 @@
 
   <nav class="ccap-breadcrumb" aria-label="Fil d'Ariane">
     <div class="inner">
-      <a href="campus.html">CCAP Campus</a>
+      <a href="javascript:history.back()">CCAP Campus</a>
       <span class="sep">›</span>
       <span class="current">Évaluation des compétences en technologies d'affaires</span>
       <div class="login-area">
@@ -694,8 +694,7 @@ function updateLoginUI(){
     btnConsoleAction.style.display = "none";
   }
 
-  // Update pill token
-  document.getElementById("pillToken").textContent = loggedIn ? tokenShort(id.token) : "";
+ 
 }
 
 function openModal(){
