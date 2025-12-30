@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" href="favicon.ico">
+  <link rel="icon" href="https://drive.google.com/uc?export=download&id=1i7FOimukyvfL_7VixD26O7PHzSzuSPbj">
 
   <title>CCAP Campus - Portail d'apprentissage</title>
   <style>
@@ -263,6 +263,278 @@
   .require-login{
     cursor: pointer;
   }
+
+  :root{
+    --brand:#A4262C;
+    --brand-dark:#7F1D22;
+    --text:#1F2937;
+    --muted:#6B7280;
+    --bg:#F3F4F6;
+    --surface:#FFFFFF;
+    --border:#E5E7EB;
+  }
+
+  .hero{
+    background: linear-gradient(180deg, #fff, #fff);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px;
+    margin: 18px 0;
+    box-shadow: 0 8px 24px rgba(0,0,0,.06);
+  }
+
+  .hero-inner{
+    display: grid;
+    grid-template-columns: 1.15fr .85fr;
+    gap: 18px;
+    align-items: stretch;
+  }
+
+  .hero-copy{
+    padding: 8px 6px;
+  }
+
+  .hero-kicker{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 800;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: var(--brand);
+    margin: 0 0 10px 0;
+  }
+
+  .hero-title{
+    margin: 0 0 10px 0;
+    font-size: clamp(22px, 2.2vw, 30px);
+    line-height: 1.15;
+    color: var(--text);
+  }
+
+  .hero-subtitle{
+    margin: 0 0 14px 0;
+    font-size: 15.5px;
+    line-height: 1.5;
+    color: var(--muted);
+    max-width: 64ch;
+  }
+
+  .hero-actions{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 6px 0 10px 0;
+  }
+
+  .btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: transform .06s ease, box-shadow .12s ease, background-color .12s ease;
+    user-select: none;
+  }
+
+  .btn:active{
+    transform: translateY(1px);
+  }
+
+  .btn-primary{
+    background: var(--brand);
+    color: #fff;
+    box-shadow: 0 8px 18px rgba(164,38,44,.18);
+  }
+
+  .btn-primary:hover{
+    background: var(--brand-dark);
+    box-shadow: 0 10px 22px rgba(164,38,44,.22);
+  }
+
+  .btn-ghost{
+    background: #fff;
+    color: var(--text);
+    border-color: var(--border);
+  }
+
+  .btn-ghost:hover{
+    background: #fafafa;
+  }
+
+  .hero-meta{
+    margin: 10px 0 0 0;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .hero-media{
+    border-radius: 14px;
+    border: 1px dashed #d6d9de;
+    background: radial-gradient(circle at 30% 20%, rgba(164,38,44,.10), transparent 55%),
+                radial-gradient(circle at 70% 65%, rgba(31,41,55,.08), transparent 50%),
+                #fbfbfc;
+    overflow: hidden;
+    min-height: 180px;
+    display: grid;
+    place-items: center;
+  }
+
+  .hero-media-placeholder{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    color: #6b7280;
+    font-weight: 800;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+
+  @media (max-width: 860px){
+    .hero-inner{
+      grid-template-columns: 1fr;
+    }
+    .hero-media{
+      min-height: 160px;
+    }
+  }
+
+  #services ul {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Creates two equal columns */
+  gap: 20px;                      /* Adds space between columns and rows */
+  list-style-type: none;          /* Removes default bullet points */
+  padding: 0;
+  margin-top: -15px;
+}
+
+/* Optional: Make it responsive (1 column on mobile) */
+@media (max-width: 600px) {
+  #services ul {
+    grid-template-columns: 1fr;
+  }
+}
+
+.secondary-content {
+  display: grid;
+  /* repeat(3, 1fr) creates three equal columns */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;          /* Space between the columns */
+  align-items: start; /* Ensures headers align at the top even if text length varies */
+  padding: 0px;
+}
+
+/* Responsive adjustment for tablets and phones */
+@media (max-width: 1024px) {
+  .secondary-content {
+    grid-template-columns: 1fr; /* Stacks them vertically on small screens */
+  }
+}
+
+/* Optional: Clean up the lists */
+.secondary-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.secondary-content li {
+  margin-bottom: 10px;
+}
+
+#catalogue h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.card-grid {
+  display: grid;
+  /* This creates 3 columns but handles growth perfectly */
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.course-card {
+  background: #ffffff;
+  border: 1px solid #e1e4e8;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.course-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+}
+
+.course-card h3 {
+  margin-top: 0;
+  font-size: 1.25rem;
+  color: var(--brand-dark); /* Professional blue */
+  min-height: 1rem; /* Keeps titles aligned */
+}
+
+.card-content {
+  flex-grow: 1; /* Pushes the footer/button to the bottom */
+  color: #5f6368;
+  font-size: 0.95rem;
+}
+
+.card-meta {
+  list-style: none;
+  padding: 0;
+  font-size: 0.85rem;
+  margin: 15px 0;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+
+.card-footer {
+  margin-top: 10px;
+}
+
+/* Button Styling */
+.btn-eval, .btn-secondary {
+  display: inline-block;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.btn-eval{
+  border: 1px solid var(--brand-dark);
+  color: var(--brand-dark);
+  background-color: white;
+  cursor: pointer;
+}
+
+.btn-eval:hover{
+  background: var(--brand-dark);
+    color: white;
+}
+
+.btn-secondary {
+  border: 1px solid var(--brand-dark);
+  color: var(--brand-dark);
+}
+
+.btn-secondary:hover {
+  background: var(--brand-dark);
+    color: white;
+}
   </style>
 </head>
 <body>
@@ -279,8 +551,8 @@
   <nav class="ccap-breadcrumb" aria-label="Fil d'Ariane">
     <div class="inner">
       <a href="#">CCAP Campus</a>
-      <!-- <span class="sep">›</span>
-      <span class="current">Évaluation des compétences en technologies d'affaires</span> -->
+      <span class="sep">›</span>
+      <span class="current">Évaluation des compétences en technologies d'affaires</span>
       <div class="login-area">
         <button id="btnLogin" type="button">Ouvrir une session</button>
         <span id="loginPill" class="pill" style="display:none;">
@@ -294,14 +566,23 @@
     <h1>CCAP Campus</h1>
     <p>Portail interne pour l'apprentissage et l'évaluation des compétences. Connecte-toi pour générer ton jeton et suivre ton parcours.</p>
 
-    <section id="vedette">
-      <h2>En vedette</h2>
-      <div>
-        <h3>Annonce: Série de capsules pratiques</h3>
-        <p>Nouveaux contenus courts, utiles, et orientés terrain pour la productivité, la rédaction, et l'analyse.</p>
-        <p><a href="#catalogue">Voir dans le catalogue</a></p>
+<section id="vedette" class="hero" aria-label="En vedette">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <p class="hero-kicker">En vedette</p>
+      <h2 class="hero-title">Annonce: Série de capsules pratiques</h2>
+      <p class="hero-subtitle"><a href="#programmes">
+        <span class="sep">›</span> Nouveaux contenus courts, utiles, et orientés terrain pour la productivité, la rédaction, et l'analyse.
+      </p>
+  </div>
+
+    <div class="hero-media" aria-hidden="true">
+      <div class="hero-media-placeholder">
+        <img src="https://plpilon.github.io/ccap-ccpa/Hero.jpg" width="100%" alt="bannière promotionnelle, en vedette">
       </div>
-    </section>
+    </div></a>
+  </div>
+</section>
 
     <section id="services">
       <h2>Services et renseignements</h2>
@@ -330,58 +611,77 @@
     </section>
 
     <section id="catalogue">
-      <h2>Catalogue d'apprentissage</h2>
-      <article>
-        <h3>Évaluation des compétences en technologies d'affaires</h3>
-        <p>Test de placement, 3 étapes: vitesse de frappe, Word, simulation.</p>
-        <ul>
-          <li>Durée totale: environ 50 minutes</li>
-          <li>Compte CCAP Campus requis</li>
+  <h2>Catalogue d'apprentissage</h2>
+
+  <div class="card-grid">
+    <article class="course-card">
+      <h3>Évaluation des compétences</h3>
+      <div class="card-content">
+        <p>Test de placement en 3 étapes : vitesse de frappe, Word, simulation.</p>
+        <ul class="card-meta">
+          <li><strong>Durée:</strong> 50 min</li>
+          <li>Compte requis</li>
         </ul>
-        <p>
-          <button id="btnGoEval" type="button">Accéder à l'évaluation</button>
-          <span id="evalHint"></span>
-        </p>
-      </article>
-      <article>
-        <h3>Suite Microsoft Excel 365, notions essentielles</h3>
+      </div>
+      <div class="card-footer">
+    <div class="card-footer">
+    <a href="#" id="btnGoEval" class="require-login btn-secondary" data-page="evaluation">
+      Accéder à l'évaluation
+    </a>  
+    </div>
+    </article>
+
+    <article class="course-card">
+      <h3>Microsoft Excel 365</h3>
+      <div class="card-content">
         <p>Filtres, tableaux, formules, tri, validation, et mise en forme efficace.</p>
-        <p><a href="#" class="require-login" data-page="excel">Ouvrir</a></p>
-      </article>
-      <article>
-        <h3>Rédaction professionnelle, modèles et styles Word</h3>
+      </div>
+      <div class="card-footer">
+        <a href="#" class="require-login btn-secondary" data-page="excel">Ouvrir le cours</a>
+      </div>
+    </article>
+
+    <article class="course-card">
+      <h3>Rédaction et styles Word</h3>
+      <div class="card-content">
         <p>Styles, listes, sections, en-têtes et pieds de page, table des matières.</p>
-        <p><a href="#" class="require-login" data-page="word">Ouvrir</a></p>
-      </article>
-    </section>
+      </div>
+      <div class="card-footer">
+        <a href="#" class="require-login btn-secondary" data-page="word">Ouvrir le cours</a>
+      </div>
+    </article>
+  </div>
+</section>
 
-    <section id="parcours">
-      <h2>Parcours d'apprentissage</h2>
-      <ul>
-        <li><a href="#" class="require-login" data-page="demarrage">Démarrage, outils bureautiques</a></li>
-        <li><a href="#" class="require-login" data-page="redaction">Rédaction, documents et modèles</a></li>
-        <li><a href="#" class="require-login" data-page="analyse">Analyse, tableaux et données</a></li>
-        <li><a href="#" class="require-login" data-page="productivite">Productivité, pratiques et automatisation légère</a></li>
-      </ul>
-    </section>
+   <div class="secondary-content">
+  <section id="parcours">
+    <h2>Parcours d'apprentissage</h2>
+    <ul>
+      <li><a href="#" class="require-login" data-page="demarrage">Démarrage, outils bureautiques</a></li>
+      <li><a href="#" class="require-login" data-page="redaction">Rédaction, documents et modèles</a></li>
+      <li><a href="#" class="require-login" data-page="analyse">Analyse, tableaux et données</a></li>
+      <li><a href="#" class="require-login" data-page="productivite">Productivité, pratiques et automatisation légère</a></li>
+    </ul>
+  </section>
 
-    <section id="programmes">
-      <h2>Programmes et séries</h2>
-      <ul>
-        <li><a href="#" class="require-login" data-page="word-series">Série: Trucs Word en 10 minutes</a></li>
-        <li><a href="#" class="require-login" data-page="excel-series">Série: Excel pour produire vite et bien</a></li>
-        <li><a href="#" class="require-login" data-page="comm-series">Série: Communication pro</a></li>
-      </ul>
-    </section>
+  <section id="programmes">
+    <h2>Programmes et séries</h2>
+    <ul>
+      <li><a href="#" class="require-login" data-page="word-series">Série: Trucs Word en 10 minutes</a></li>
+      <li><a href="#" class="require-login" data-page="excel-series">Série: Excel pour produire vite et bien</a></li>
+      <li><a href="#" class="require-login" data-page="comm-series">Série: Communication pro</a></li>
+    </ul>
+  </section>
 
-    <section id="initiatives">
-      <h2>Partenariats et initiatives</h2>
-      <p>Espace pour annoncer des projets pilotes, des communautés de pratique, et des initiatives internes.</p>
-      <ul>
-        <li><a href="#" class="require-login" data-page="labo">Laboratoire: modèles de documents et gabarits</a></li>
-        <li><a href="#" class="require-login" data-page="clinique">Clinique: Réparer un document Word en 15 minutes</a></li>
-      </ul>
-    </section>
+  <section id="initiatives">
+    <h2>Partenariats et initiatives</h2>
+    <p>Espace pour annoncer des projets pilotes, des communautés de pratique, et des initiatives internes.</p>
+    <ul>
+      <li><a href="#" class="require-login" data-page="labo">Laboratoire: modèles de documents et gabarits</a></li>
+      <li><a href="#" class="require-login" data-page="clinique">Clinique: Réparer un document Word en 15 minutes</a></li>
+    </ul>
+  </section>
+</div>
 
     <div style="height: 60px;"></div>
   </div>
@@ -424,241 +724,189 @@
     </div>
   </div>
 
- <script>
-  // =========================
-  // PERSISTENCE (localStorage)
-  // Must match the eval page key
-  // =========================
-  const IDENTITY_KEY = "ccap_eval_identity_v1";
+  <script>
+    // =========================
+    // IN-MEMORY STORAGE
+    // =========================
+    let identityStore = null;
 
-  const EVAL_URL = "https://plpilon.github.io/ccap-ccpa/evaluationTIaffaires.html";
+    const EVAL_URL = "https://plpilon.github.io/ccap-ccpa/evaluationTIaffaires.html";
 
-  // =========================
-  // Helpers
-  // =========================
-  function getUrlParam(name){
-    return new URLSearchParams(location.search).get(name);
-  }
-
-  function genToken(){
-    if (crypto && crypto.randomUUID) return crypto.randomUUID();
-    const bytes = new Uint8Array(16);
-    (crypto || window.msCrypto).getRandomValues(bytes);
-    return [...bytes].map(b => b.toString(16).padStart(2,"0")).join("");
-  }
-
-  function loadIdentity(){
-    try{
-      const raw = localStorage.getItem(IDENTITY_KEY);
-      return raw ? JSON.parse(raw) : null;
-    } catch {
-      return null;
-    }
-  }
-
-  function saveIdentity(obj){
-    try{
-      localStorage.setItem(IDENTITY_KEY, JSON.stringify(obj));
-    } catch {
-      // ignore storage issues
-    }
-  }
-
-  function clearIdentity(){
-    try{
-      localStorage.removeItem(IDENTITY_KEY);
-    } catch {
-      // ignore
-    }
-  }
-
-  function isLoggedIn(){
-    const id = loadIdentity();
-    return !!(id && id.token && id.studentId);
-  }
-
-  function tokenShort(t){
-    if (!t) return "";
-    return t.slice(0, 8);
-  }
-
-  function getTokenParam(){
-    const id = loadIdentity();
-    return id && id.token ? `token=${encodeURIComponent(id.token)}` : "";
-  }
-
-  function updateUI(){
-    const id = loadIdentity();
-    const loggedIn = !!(id && id.token && id.studentId);
-
-    // Breadcrumb area
-    const btnLogin = document.getElementById("btnLogin");
-    const loginPill = document.getElementById("loginPill");
-    const pillToken = document.getElementById("pillToken");
-
-    if (btnLogin) btnLogin.style.display = loggedIn ? "none" : "inline-block";
-    if (loginPill) loginPill.style.display = loggedIn ? "inline-flex" : "none";
-    if (pillToken) pillToken.textContent = loggedIn && id ? tokenShort(id.token) : "";
-
-    // Console footer
-    const statusDot = document.getElementById("statusDot");
-    const consoleStatus = document.getElementById("consoleStatus");
-    const consoleTokenArea = document.getElementById("consoleTokenArea");
-    const consoleToken = document.getElementById("consoleToken");
-    const btnConsoleAction = document.getElementById("btnConsoleAction");
-
-    if (statusDot) statusDot.classList.toggle("connected", loggedIn);
-    if (consoleStatus) consoleStatus.textContent = loggedIn ? "connecté" : "non connecté";
-    if (consoleTokenArea) consoleTokenArea.style.display = loggedIn ? "inline" : "none";
-    if (consoleToken) consoleToken.textContent = loggedIn && id ? tokenShort(id.token) : "";
-
-    if (btnConsoleAction){
-      btnConsoleAction.style.display = loggedIn ? "inline-block" : "none";
-      btnConsoleAction.textContent = "Déconnexion";
+    // =========================
+    // Helpers
+    // =========================
+    function getUrlParam(name){
+      return new URLSearchParams(location.search).get(name);
     }
 
-    const evalHint = document.getElementById("evalHint");
-    if (evalHint) evalHint.textContent = loggedIn ? "✓ Session prête" : "";
-  }
-
-  function openModal(){
-    const modal = document.getElementById("loginModal");
-    if (!modal) return;
-    modal.hidden = false;
-
-    const cached = loadIdentity();
-    if (cached){
-      const fn = document.getElementById("firstName");
-      const ln = document.getElementById("lastName");
-      const sid = document.getElementById("studentId");
-      if (fn) fn.value = cached.firstName || "";
-      if (ln) ln.value = cached.lastName || "";
-      if (sid) sid.value = cached.studentId || "";
+    function genToken(){
+      if (crypto && crypto.randomUUID) return crypto.randomUUID();
+      const bytes = new Uint8Array(16);
+      (crypto || window.msCrypto).getRandomValues(bytes);
+      return [...bytes].map(b => b.toString(16).padStart(2,"0")).join("");
     }
 
-    const sid = document.getElementById("studentId");
-    if (sid) sid.focus();
-  }
+    function loadIdentity(){
+      return identityStore;
+    }
 
-  function closeModal(){
-    const modal = document.getElementById("loginModal");
-    if (modal) modal.hidden = true;
-  }
+    function saveIdentity(obj){
+      identityStore = obj;
+    }
 
-  // =========================
-  // Events (null-safe bindings)
-  // =========================
-  (function bind(){
-    const btnLogin = document.getElementById("btnLogin");
-    const loginPill = document.getElementById("loginPill");
-    const btnCloseModal = document.getElementById("btnCloseModal");
-    const loginForm = document.getElementById("loginForm");
-    const btnGoEval = document.getElementById("btnGoEval");
-    const btnConsoleAction = document.getElementById("btnConsoleAction");
-    const btnAccessPlateforme = document.getElementById("btnAccessPlateforme");
+    function clearIdentity(){
+      identityStore = null;
+    }
 
-    if (btnLogin) btnLogin.addEventListener("click", openModal);
-    if (loginPill) loginPill.addEventListener("click", openModal);
-    if (btnCloseModal) btnCloseModal.addEventListener("click", closeModal);
+    function updateUI(){
+      const id = loadIdentity();
+      const isLoggedIn = !!(id && id.token && id.studentId);
 
-    if (loginForm){
-      loginForm.addEventListener("submit", (e)=>{
-        e.preventDefault();
+      // Breadcrumb area
+      const btnLogin = document.getElementById("btnLogin");
+      const loginPill = document.getElementById("loginPill");
+      const pillToken = document.getElementById("pillToken");
 
-        const firstName = String((document.getElementById("firstName")?.value) || "").trim();
-        const lastName  = String((document.getElementById("lastName")?.value) || "").trim();
-        const studentId = String((document.getElementById("studentId")?.value) || "").trim();
+      if (isLoggedIn) {
+        btnLogin.style.display = "none";
+        loginPill.style.display = "inline-flex";
+        pillToken.textContent = id.token.slice(0, 8);
+      } else {
+        btnLogin.style.display = "inline-block";
+        loginPill.style.display = "none";
+      }
 
-        if (!studentId){
-          alert("Ajoute au moins un numéro étudiant ou un courriel.");
-          return;
-        }
+      // Console footer
+      const statusDot = document.getElementById("statusDot");
+      const consoleStatus = document.getElementById("consoleStatus");
+      const consoleTokenArea = document.getElementById("consoleTokenArea");
+      const consoleToken = document.getElementById("consoleToken");
+      const btnConsoleAction = document.getElementById("btnConsoleAction");
 
-        const cached = loadIdentity();
-        const token = (cached && cached.token) ? cached.token : genToken();
+      if (isLoggedIn) {
+        statusDot.classList.add("connected");
+        consoleStatus.textContent = "connecté";
+        consoleTokenArea.style.display = "inline";
+        consoleToken.textContent = id.token.slice(0, 8);
+        btnConsoleAction.style.display = "inline-block";
+        btnConsoleAction.textContent = "Déconnexion";
+      } else {
+        statusDot.classList.remove("connected");
+        consoleStatus.textContent = "non connecté";
+        consoleTokenArea.style.display = "none";
+        btnConsoleAction.style.display = "none";
+      }
+    }
 
-        saveIdentity({ token, firstName, lastName, studentId });
+    function openModal(){
+      document.getElementById("loginModal").hidden = false;
+      const cached = loadIdentity();
+      if (cached){
+        document.getElementById("firstName").value = cached.firstName || "";
+        document.getElementById("lastName").value = cached.lastName || "";
+        document.getElementById("studentId").value = cached.studentId || "";
+      }
+      document.getElementById("studentId").focus();
+    }
+
+    function closeModal(){
+      document.getElementById("loginModal").hidden = true;
+    }
+
+    function isLoggedIn(){
+      const id = loadIdentity();
+      return !!(id && id.token && id.studentId);
+    }
+
+    function getTokenParam(){
+      const id = loadIdentity();
+      return id && id.token ? `token=${encodeURIComponent(id.token)}` : '';
+    }
+
+    // =========================
+    // Events
+    // =========================
+    document.getElementById("btnLogin").addEventListener("click", openModal);
+    document.getElementById("loginPill").addEventListener("click", openModal);
+    document.getElementById("btnCloseModal").addEventListener("click", closeModal);
+
+    document.getElementById("loginForm").addEventListener("submit", (e)=>{
+      e.preventDefault();
+
+      const firstName = String(document.getElementById("firstName").value || "").trim();
+      const lastName  = String(document.getElementById("lastName").value || "").trim();
+      const studentId = String(document.getElementById("studentId").value || "").trim();
+
+      if (!studentId){
+        alert("Ajoute au moins un numéro étudiant ou un courriel.");
+        return;
+      }
+
+      const cached = loadIdentity();
+      const token = (cached && cached.token) || genToken();
+
+      saveIdentity({ token, firstName, lastName, studentId });
+      updateUI();
+      closeModal();
+
+      document.getElementById("evalHint").textContent = "✓ Session prête";
+    });
+
+    document.getElementById("btnGoEval").addEventListener("click", ()=>{
+      if (!isLoggedIn()) {
+        openModal();
+        return;
+      }
+
+      const id = loadIdentity();
+      const url = `${EVAL_URL}?step=1&token=${encodeURIComponent(id.token)}`;
+      window.location.href = url;
+    });
+
+    document.getElementById("btnConsoleAction").addEventListener("click", ()=>{
+      if (isLoggedIn()) {
+        clearIdentity();
         updateUI();
-        closeModal();
-      });
+        document.getElementById("evalHint").textContent = "";
+      }
+    });
+    document.getElementById("btnAccessPlateforme").addEventListener("click", (e) => {
+    e.preventDefault();
+    if (!isLoggedIn()) {
+        openModal();
     }
-
-    if (btnGoEval){
-      btnGoEval.addEventListener("click", ()=>{
-        if (!isLoggedIn()) {
-          openModal();
-          return;
-        }
-        const id = loadIdentity();
-        const url = `${EVAL_URL}?step=1&token=${encodeURIComponent(id.token)}`;
-        window.location.href = url;
-      });
-    }
-
-    if (btnConsoleAction){
-      btnConsoleAction.addEventListener("click", ()=>{
-        if (isLoggedIn()) {
-          clearIdentity();
-          updateUI();
-        }
-      });
-    }
-
-    if (btnAccessPlateforme){
-      btnAccessPlateforme.addEventListener("click", (e)=>{
-        e.preventDefault();
-        if (!isLoggedIn()) openModal();
-        // if logged in, let the anchor behavior happen naturally (scroll)
-        // NOTE: we prevented default, so do the scroll manually:
-        if (isLoggedIn()){
-          const target = document.getElementById("plateforme");
-          if (target) target.scrollIntoView({behavior:"smooth"});
-        }
-      });
-    }
-
+  // If logged in, do nothing (just scroll to #plateforme anchor)
+});
     // Handle all links that require login
-    document.querySelectorAll(".require-login").forEach(link => {
-      link.addEventListener("click", (e) => {
+    document.querySelectorAll('.require-login').forEach(link => {
+      link.addEventListener('click', (e) => {
         e.preventDefault();
         if (!isLoggedIn()) {
           openModal();
           return;
         }
-        const page = link.dataset.page || (link.getAttribute("href") || "").replace("#", "");
+        const page = link.dataset.page || link.getAttribute('href').replace('#', '');
         const tokenParam = getTokenParam();
         const url = `${page}.html?${tokenParam}`;
         alert(`Navigation vers: ${url}\n(Ces pages n'existent pas encore dans cette démo)`);
       });
     });
-  })();
 
-  // =========================
-  // Init
-  // =========================
-  (function init(){
-    const urlToken = getUrlParam("token");
-    const stored = loadIdentity();
-
-    if (urlToken) {
-      // If token provided, persist it and keep any known identity fields
-      saveIdentity({
-        token: urlToken,
-        firstName: stored ? (stored.firstName || "") : "",
-        lastName: stored ? (stored.lastName || "") : "",
-        studentId: stored ? (stored.studentId || "Utilisateur") : "Utilisateur"
-      });
-    } else if (!stored || !stored.token) {
-      // Keep a stable token even before login
-      const t = genToken();
-      saveIdentity({ token: t, firstName: "", lastName: "", studentId: "" });
-    }
-
-    updateUI();
-  })();
-</script>
+    // Initialize - check for token in URL
+    (function init(){
+      const urlToken = getUrlParam('token');
+      if (urlToken) {
+        // Restore session from URL parameter
+        const cached = loadIdentity() || {};
+        saveIdentity({
+          token: urlToken,
+          firstName: cached.firstName || "",
+          lastName: cached.lastName || "",
+          studentId: cached.studentId || "Utilisateur"
+        });
+      }
+      updateUI();
+    })();
+  </script>
 </body>
-
 </html>
-
-
