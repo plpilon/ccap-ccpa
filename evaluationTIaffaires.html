@@ -225,7 +225,7 @@
     font-size:13px;
   }
   button:hover{ background: var(--brand-dark); }
-  button:disabled{ cursor:not-allowed; opacity:.55; }
+  button:disabled{ cursor:not-allowed; opacity:.55; font-weight: 300;}
 
   .ghost{
     background: #fff;
@@ -236,6 +236,36 @@
     background: var(--brand-soft);
   }
 
+label.ghost {
+  /* Use inline-flex instead of inline-block */
+  display: inline-flex !important;
+  align-items: center;      /* Vertical centering */
+  justify-content: center;   /* Horizontal centering */
+  
+  background: #fff;
+  color: var(--brand);
+  border: 1px solid var(--brand) !important;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 13px;
+  
+  /* Height and Padding adjustments */
+  height: 12px;             /* Increased height to accommodate font-size */
+  padding: 0 12px;          /* Padding on sides, none on top/bottom needed */
+  
+  transition: background 0.2s;
+  user-select: none;
+}
+
+label.ghost:hover {
+  background: var(--brand-soft);
+}
+
+/* Optional: Add a style for when the user clicks it */
+label.ghost:active {
+  background: #f0f0f0;
+  transform: translateY(1px);
+}
   .danger{
     background: #fff;
     color: var(--bad);
@@ -490,37 +520,39 @@
       </div>
     </div>
 
-    <!-- STEP 2 -->
-    <div class="stepcard card" id="step2">
-      <h2>Étape 2</h2>
+<div class="stepcard card" id="step2">
+  <h2>Étape 2</h2>
+  
+  <p>Télécharge et corrige le document Word suivant : </p>
+  <a id="step2DocLink" href="ETAPE2_DOCUMENT_A_CORRIGER.docx" download>...</a>
+  <p>Temps restant: <span class="mono" id="step2Countdown">20:00</span></p>
 
-      <div hidden class="status" id="step2Status">
-        <div >Token: <span class="mono" id="tokenStep2"></span></div>
-        
-        <div class="hr"></div></div>
-        <p>Télécharge et corrige le document Word suivant. Ajoute ton nom au nom du fichier avant de la soumettre. Tu as 20 minutes.</p>
-        <a id="step2DocLink" href="ETAPE2_DOCUMENT_A_CORRIGER.docx" download>Télécharger le document Word à corriger</a>
-        <p>Temps restant: <span class="mono" id="step2Countdown">1 200</span> secondes</p>
-      
-      </div>
-
-      <div class="card" style="margin-top:12px">
-        <h2>Remise du fichier</h2>
-        <div class="field">
-          <label>Sélectionne ton fichier .docx corrigé</label>
-          <input id="step2File" type="file" accept=".docx" />
-        </div>
-        <div class="btns">
-          <button id="btnUploadStep2">Soumettre le fichier</button>
-          <button id="btnToStep3" class="ghost" disabled>Aller à l'étape 3</button>
-        </div>
-        <div class="status" id="step2UploadStatus">Lorsque le fichier aura été soumis, l'étape 3 sera débloquée.</div>
-      </div>
-
-      <div class="btns" style="margin-top:12px">
-        <button class="ghost" id="btnBackToStep1">Retour à l'étape 1</button>
-      </div>
+  <div class="card" style="margin-top:12px">
+  <h2>Remise du fichier</h2>
+  <div class="field">
+    <label>Sélectionne ton fichier .docx corrigé</label>
+    
+    <input id="step2File" type="file" accept=".docx" style="display: none;" />
+    
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+      <label for="step2File" class="ghost" style="padding: 10px 14px; border-radius: 12px; border: 1fr solid var(--brand); cursor: pointer; font-weight: 600; font-size: 13px; margin: 0;">
+        Parcourir...
+      </label>
+      <span id="fileNameDisplay" style="font-size: 13px; color: var(--muted);">Aucun fichier sélectionné</span>
     </div>
+  </div>
+
+  <div class="btns">
+    <button id="btnUploadStep2">Soumettre le fichier</button>
+    <button id="btnToStep3" class="ghost" disabled>Aller à l'étape 3</button>
+  </div>
+  <div class="status" id="step2UploadStatus">Lorsque le fichier aura été soumis, l'étape 3 sera débloquée.</div>
+</div>
+
+  <div class="btns" style="margin-top:12px">
+    <button class="ghost" id="btnBackToStep1">Retour à l'étape 1</button>
+  </div>
+</div>
 
     <!-- STEP 3 -->
     <div class="stepcard card" id="step3">
@@ -769,7 +801,16 @@ function startStep2Timer(){
   step2TickId = setInterval(() => {
     const elapsed = Math.floor((Date.now() - step2StartMs) / 1000);
     const remaining = Math.max(0, STEP2_LIMIT_SEC - elapsed);
-    setText("step2Countdown", String(remaining));
+
+    // Calculate minutes and seconds
+    const mins = Math.floor(remaining / 60);
+    const secs = remaining % 60;
+
+    // Format as MM:SS (e.g., 19:05)
+    const displayTime = `${mins}:${String(secs).padStart(2, '0')}`;
+    
+    setText("step2Countdown", displayTime);
+
     if (remaining <= 0) clearStep2Timer();
   }, 250);
 }
@@ -1148,7 +1189,16 @@ function init(){
     // keep token to allow resume, but not "logged in" yet
     saveIdentity({ token: state.token, firstName: "", lastName: "", studentId: "" });
   }
+ // Inside your init function or at the bottom of the script
+const fileInput = $("step2File");
+const nameDisplay = $("fileNameDisplay");
 
+if (fileInput && nameDisplay) {
+  fileInput.addEventListener("change", (e) => {
+    const fileName = e.target.files.length > 0 ? e.target.files[0].name : "Aucun fichier sélectionné";
+    nameDisplay.textContent = fileName;
+  });
+}
   updateLoginUI();
 
   window.addEventListener("blur", ()=>{ state.focusLost++; });
@@ -1266,5 +1316,6 @@ init();
 
 </body>
 </html>
+
 
 
