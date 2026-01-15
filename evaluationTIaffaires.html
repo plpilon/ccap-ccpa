@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="fr">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,426 +8,527 @@
 
   <title>Évaluation des compétences - CCAP Campus</title>
   <style>
-  :root{
-    --brand:#A4262C;
-    --brand-dark:#7F1D22;
-    --brand-soft:#FCE8EA;
-    --bg:#F3F4F6;
-    --surface:#FFFFFF;
-    --surface-2:#FAFAFA;
-    --text:#1F2937;
-    --muted:#6B7280;
-    --border:#D1D5DB;
-    --border-2:#E5E7EB;
-    --focus: rgba(164, 38, 44, .25);
-    --good:#0F766E;
-    --warn:#B45309;
-    --bad:#B91C1C;
-    --radius:14px;
-  }
+    :root {
+      --brand: #A4262C;
+      --brand-dark: #7F1D22;
+      --brand-soft: #FCE8EA;
+      --bg: #F3F4F6;
+      --surface: #FFFFFF;
+      --surface-2: #FAFAFA;
+      --text: #1F2937;
+      --muted: #6B7280;
+      --border: #D1D5DB;
+      --border-2: #E5E7EB;
+      --focus: rgba(164, 38, 44, .25);
+      --good: #0F766E;
+      --warn: #B45309;
+      --bad: #B91C1C;
+      --radius: 14px;
+    }
 
-  html,body{height:100%}
-  body{
-    margin:0;
-    font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
-    color: var(--text);
-    line-height:1.35;
-    background:
-      radial-gradient(900px 700px at 50% 35%, rgba(255,255,255,.92) 0%, rgba(255,255,255,0) 60%),
-      linear-gradient(135deg, #f2b7b7 0%, #f6e9e9 35%, #e9f0fb 65%, #bcd2f5 100%);
-    background-attachment: fixed;
-  }
+    html,
+    body {
+      height: 100%
+    }
 
-  .ccap-topbar{
-    background: var(--brand);
-    color:#fff;
-    height:72px;
-    display:flex;
-    align-items:center;
-    box-shadow: 0 2px 0 rgba(0,0,0,.08);
-  }
-  .ccap-topbar .inner{
-    max-width: 1100px;
-    width:100%;
-    margin: 0 auto;
-    padding: 0 16px;
-    display:flex;
-    align-items:center;
-    gap:14px;
-  }
-  .ccap-mark{
-    width:36px;
-    height:36px;
-    border-radius:8px;
-    background: rgba(255,255,255,.12);
-    display:grid;
-    place-items:center;
-    flex:0 0 auto;
-  }
-  .ccap-title{
-    font-size: 22px;
-    font-weight:700;
-    letter-spacing:.2px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-  }
-  .ccap-actions{
-    margin-left:auto;
-    display:flex;
-    gap:14px;
-    align-items:center;
-    font-size:14px;
-    opacity:.95;
-  }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+      color: var(--text);
+      line-height: 1.35;
+      background:
+        radial-gradient(900px 700px at 50% 35%, rgba(255, 255, 255, .92) 0%, rgba(255, 255, 255, 0) 60%),
+        linear-gradient(135deg, #f2b7b7 0%, #f6e9e9 35%, #e9f0fb 65%, #bcd2f5 100%);
+      background-attachment: fixed;
+    }
 
-  .ccap-breadcrumb{
-    background:#F9FAFB;
-    border-bottom:1px solid var(--border);
-    font-size:13px;
-  }
-  .ccap-breadcrumb .inner{
-    max-width:1100px;
-    margin:0 auto;
-    padding:8px 16px;
-    display:flex;
-    align-items:center;
-    gap:6px;
-    color:var(--muted);
-  }
-  .ccap-breadcrumb a{
-    color:var(--brand);
-    text-decoration:none;
-    font-weight:600;
-  }
-  .ccap-breadcrumb a:hover{
-    text-decoration:underline;
-  }
-  .ccap-breadcrumb .sep{
-    color:#9CA3AF;
-  }
-  .ccap-breadcrumb .current{
-    color:#374151;
-    font-weight:600;
-  }
-  .ccap-breadcrumb .login-area{
-    margin-left: auto;
-  }
+    .ccap-topbar {
+      background: var(--brand);
+      color: #fff;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 2px 0 rgba(0, 0, 0, .08);
+    }
 
-  .wrap{
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 18px 16px 80px;
-  }
+    .ccap-topbar .inner {
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
 
-  .header{
-    display:flex;
-    gap:12px;
-    align-items:flex-start;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    margin-bottom:14px;
-  }
-  .title{
-    font-size:24px;
-    font-weight:700;
-    margin:0;
-  }
-  .note{
-    color:var(--muted);
-    font-size:13px;
-    margin-top:6px;
-  }
+    .ccap-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .12);
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+    }
 
-  .pill{
-    display:inline-flex;
-    gap:8px;
-    align-items:center;
-    border:1px solid var(--border);
-    background: var(--surface);
-    border-radius:999px;
-    padding:8px 14px;
-    color:var(--text);
-    font-size:12px;
-    white-space:nowrap;
-    font-weight:600;
-  }
-  .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace}
+    .ccap-title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: .2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-  .grid{
-    display:grid;
-    grid-template-columns: 1.1fr .9fr;
-    gap:14px;
-  }
-  @media (max-width: 900px){
-    .grid{grid-template-columns:1fr}
-  }
+    .ccap-actions {
+      margin-left: auto;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      font-size: 14px;
+      opacity: .95;
+    }
 
-  .card{
-    border:1px solid var(--border);
-    background: var(--surface);
-    border-radius: var(--radius);
-    padding:16px;
-    box-shadow: 0 10px 22px rgba(0,0,0,.06);
-  }
-  .card h2{
-    margin:0 0 12px 0;
-    font-size:13px;
-    color:var(--muted);
-    font-weight:700;
-    letter-spacing:.04em;
-    text-transform:uppercase;
-  }
+    .ccap-breadcrumb {
+      background: #F9FAFB;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
 
-  .row{
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-    gap:10px;
-  }
+    .ccap-breadcrumb .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+    }
 
-  .field label{
-    display:block;
-    font-size:12px;
-    color:var(--muted);
-    margin:0 0 6px 0;
-  }
-  .field input, .field select, textarea{
-    width:100%;
-    box-sizing:border-box;
-    padding:10px 10px;
-    border-radius:12px;
-    border:1px solid var(--border);
-    background: var(--surface-2);
-    color:var(--text);
-    outline:none;
-  }
-  .field input:focus, textarea:focus{
-    border-color: var(--brand);
-    box-shadow: 0 0 0 4px var(--focus);
-    background: #fff;
-  }
+    .ccap-breadcrumb a {
+      color: var(--brand);
+      text-decoration: none;
+      font-weight: 600;
+    }
 
-  textarea{
-    min-height:160px;
-    resize:vertical;
-    font-size:14px;
-    line-height:1.45;
-  }
+    .ccap-breadcrumb a:hover {
+      text-decoration: underline;
+    }
 
-  .btns{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
-  button{
-    border:1px solid transparent;
-    background: var(--brand);
-    color:#fff;
-    padding:10px 14px;
-    border-radius:12px;
-    cursor:pointer;
-    font-weight:600;
-    font-size:13px;
-  }
-  button:hover{ background: var(--brand-dark); }
-  button:disabled{ cursor:not-allowed; opacity:.55; font-weight: 300;}
+    .ccap-breadcrumb .sep {
+      color: #9CA3AF;
+    }
 
-  .ghost{
-    background: #fff;
-    color: var(--brand);
-    border:1px solid var(--brand);
-  }
-  .ghost:hover{
-    background: var(--brand-soft);
-  }
+    .ccap-breadcrumb .current {
+      color: #374151;
+      font-weight: 600;
+    }
 
-label.ghost {
-  /* Use inline-flex instead of inline-block */
-  display: inline-flex !important;
-  align-items: center;      /* Vertical centering */
-  justify-content: center;   /* Horizontal centering */
-  
-  background: #fff;
-  color: var(--brand);
-  border: 1px solid var(--brand) !important;
-  border-radius: 12px;
-  cursor: pointer;
-  font-size: 13px;
-  
-  /* Height and Padding adjustments */
-  height: 12px;             /* Increased height to accommodate font-size */
-  padding: 0 12px;          /* Padding on sides, none on top/bottom needed */
-  
-  transition: background 0.2s;
-  user-select: none;
-}
+    .ccap-breadcrumb .login-area {
+      margin-left: auto;
+    }
 
-label.ghost:hover {
-  background: var(--brand-soft);
-}
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 16px 80px;
+    }
 
-/* Optional: Add a style for when the user clicks it */
-label.ghost:active {
-  background: #f0f0f0;
-  transform: translateY(1px);
-}
-  .danger{
-    background: #fff;
-    color: var(--bad);
-    border:1px solid var(--bad);
-  }
-  .danger:hover{ background: #FEE2E2; }
+    .header {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
 
-  .kpis{
-    display:grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap:10px;
-  }
-  @media (max-width: 900px){
-    .kpis{grid-template-columns: repeat(2, 1fr)}
-  }
-  .kpi{
-    border:1px solid var(--border-2);
-    background: #fff;
-    border-radius:12px;
-    padding:10px;
-  }
-  .kpi .k{font-size:12px; color:var(--muted); margin-bottom:6px}
-  .kpi .v{font-size:18px; font-weight:800; color: var(--text)}
+    .title {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 0;
+    }
 
-  .target{
-    border:1px solid var(--border);
-    background: #fff;
-    border-radius:12px;
-    padding:12px;
-    font-size:14px;
-    user-select:none;
-    -webkit-user-select:none;
-  }
-  .target small{
-    display:block;
-    color:var(--muted);
-    margin-bottom:6px;
-    font-size:12px;
-  }
+    .note {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 6px;
+    }
 
-  .status{
-    margin-top:10px;
-    padding:10px 12px;
-    border-radius:12px;
-    border:1px solid var(--border);
-    background: #fff;
-    color:var(--muted);
-    font-size:13px;
-    white-space:pre-wrap;
-  }
+    .pill {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 999px;
+      padding: 8px 14px;
+      color: var(--text);
+      font-size: 12px;
+      white-space: nowrap;
+      font-weight: 600;
+    }
 
-  .ok{color:var(--good)}
-  .warn{color:var(--warn)}
-  .bad{color:var(--bad)}
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace
+    }
 
-  .hr{height:1px; background: var(--border-2); margin:12px 0}
+    .grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 14px;
+    }
 
-  .stepcard{display:none;}
-  .stepcard.active{display:block;}
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr
+      }
+    }
 
-  .modal-overlay{
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.5);
-    display: grid;
-    place-items: center;
-    z-index: 1000;
-    padding: 20px;
-  }
-  .modal-content{
-    background: var(--surface);
-    border-radius: var(--radius);
-    padding: 24px;
-    max-width: 480px;
-    width: 100%;
-    box-shadow: 0 20px 50px rgba(0,0,0,.3);
-  }
-  .modal-content h2{
-    margin: 0 0 8px 0;
-    font-size: 24px;
-    color: var(--text);
-  }
-  .modal-content > p{
-    color: var(--muted);
-    margin: 0 0 20px 0;
-    font-size: 14px;
-  }
-  .modal-content label{
-    display: block;
-    font-size: 13px;
-    color: var(--text);
-    font-weight: 600;
-    margin: 0 0 6px 0;
-  }
-  .modal-content input{
-    width: 100%;
-    box-sizing: border-box;
-    padding: 10px 12px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    background: var(--surface-2);
-    color: var(--text);
-    outline: none;
-    font-size: 14px;
-    margin-bottom: 14px;
-  }
-  .modal-content input:focus{
-    border-color: var(--brand);
-    box-shadow: 0 0 0 3px var(--focus);
-    background: #fff;
-  }
-  .modal-buttons{
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-  }
+    .card {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, .06);
+    }
 
-  .console-footer{
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(31, 41, 55, 0.95);
-    backdrop-filter: blur(8px);
-    color: #9CA3AF;
-    font-size: 12px;
-    padding: 8px 16px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    border-top: 1px solid rgba(255,255,255,.1);
-    z-index: 100;
-  }
-  .console-footer .status-dot{
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #6B7280;
-  }
-  .console-footer .status-dot.connected{
-    background: var(--good);
-    box-shadow: 0 0 8px var(--good);
-  }
-  .console-footer strong{
-    color: #E5E7EB;
-  }
-  .console-footer button{
-    padding: 4px 10px;
-    font-size: 11px;
-    border-radius: 6px;
-    margin-left: auto;
-  }
-  .console-footer .token-display{
-    color: #10B981;
-  }
+    .card h2 {
+      margin: 0 0 12px 0;
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
 
-  a{color: var(--brand);}
-  a:hover{color: var(--brand-dark);}
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin: 0 0 6px 0;
+    }
+
+    .field input,
+    .field select,
+    textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      outline: none;
+    }
+
+    .field input:focus,
+    textarea:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 4px var(--focus);
+      background: #fff;
+    }
+
+    textarea {
+      min-height: 160px;
+      resize: vertical;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .btns {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px
+    }
+
+    button {
+      border: 1px solid transparent;
+      background: var(--brand);
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    button:hover {
+      background: var(--brand-dark);
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: .55;
+      font-weight: 300;
+    }
+
+    .ghost {
+      background: #fff;
+      color: var(--brand);
+      border: 1px solid var(--brand);
+    }
+
+    .ghost:hover {
+      background: var(--brand-soft);
+    }
+
+    label.ghost {
+      /* Use inline-flex instead of inline-block */
+      display: inline-flex !important;
+      align-items: center;
+      /* Vertical centering */
+      justify-content: center;
+      /* Horizontal centering */
+
+      background: #fff;
+      color: var(--brand);
+      border: 1px solid var(--brand) !important;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 13px;
+
+      /* Height and Padding adjustments */
+      height: 12px;
+      /* Increased height to accommodate font-size */
+      padding: 0 12px;
+      /* Padding on sides, none on top/bottom needed */
+
+      transition: background 0.2s;
+      user-select: none;
+    }
+
+    label.ghost:hover {
+      background: var(--brand-soft);
+    }
+
+    /* Optional: Add a style for when the user clicks it */
+    label.ghost:active {
+      background: #f0f0f0;
+      transform: translateY(1px);
+    }
+
+    .danger {
+      background: #fff;
+      color: var(--bad);
+      border: 1px solid var(--bad);
+    }
+
+    .danger:hover {
+      background: #FEE2E2;
+    }
+
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    @media (max-width: 900px) {
+      .kpis {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
+    .kpi {
+      border: 1px solid var(--border-2);
+      background: #fff;
+      border-radius: 12px;
+      padding: 10px;
+    }
+
+    .kpi .k {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px
+    }
+
+    .kpi .v {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text)
+    }
+
+    .target {
+      border: 1px solid var(--border);
+      background: #fff;
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 14px;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .target small {
+      display: block;
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-size: 12px;
+    }
+
+    .status {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--muted);
+      font-size: 13px;
+      white-space: pre-wrap;
+    }
+
+    .ok {
+      color: var(--good)
+    }
+
+    .warn {
+      color: var(--warn)
+    }
+
+    .bad {
+      color: var(--bad)
+    }
+
+    .hr {
+      height: 1px;
+      background: var(--border-2);
+      margin: 12px 0
+    }
+
+    .stepcard {
+      display: none;
+    }
+
+    .stepcard.active {
+      display: block;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .5);
+      display: grid;
+      place-items: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .modal-content {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 24px;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, .3);
+    }
+
+    .modal-content h2 {
+      margin: 0 0 8px 0;
+      font-size: 24px;
+      color: var(--text);
+    }
+
+    .modal-content>p {
+      color: var(--muted);
+      margin: 0 0 20px 0;
+      font-size: 14px;
+    }
+
+    .modal-content label {
+      display: block;
+      font-size: 13px;
+      color: var(--text);
+      font-weight: 600;
+      margin: 0 0 6px 0;
+    }
+
+    .modal-content input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      outline: none;
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    .modal-content input:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px var(--focus);
+      background: #fff;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .console-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(31, 41, 55, 0.95);
+      backdrop-filter: blur(8px);
+      color: #9CA3AF;
+      font-size: 12px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      border-top: 1px solid rgba(255, 255, 255, .1);
+      z-index: 100;
+    }
+
+    .console-footer .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #6B7280;
+    }
+
+    .console-footer .status-dot.connected {
+      background: var(--good);
+      box-shadow: 0 0 8px var(--good);
+    }
+
+    .console-footer strong {
+      color: #E5E7EB;
+    }
+
+    .console-footer button {
+      padding: 4px 10px;
+      font-size: 11px;
+      border-radius: 6px;
+      margin-left: auto;
+    }
+
+    .console-footer .token-display {
+      color: #10B981;
+    }
+
+    a {
+      color: var(--brand);
+    }
+
+    a:hover {
+      color: var(--brand-dark);
+    }
   </style>
 </head>
+
 <body>
   <div class="ccap-topbar">
     <div class="inner">
@@ -520,803 +622,1106 @@ label.ghost:active {
       </div>
     </div>
 
-<div class="stepcard card" id="step2">
-  <h2>Étape 2</h2>
-  
-  <p>Télécharge et corrige le document Word suivant : </p>
-  <a id="step2DocLink" href="https://plpilon.github.io/ccap-ccpa/CCAP%20-%20Rapport%20d%E2%80%99%C3%A9valuation%20-%20Leadership%20num%C3%A9rique.docx" download>Rapport d'évaluation - Leadership numérique</a>
-  <p>Temps restant: <span class="mono" id="step2Countdown">20:00</span></p>
+    <div class="stepcard card" id="step2">
+      <h2>Étape 2</h2>
 
-  <div class="card" style="margin-top:12px">
-  <h2>Remise du fichier</h2>
-  <div class="field">
-    <label>Sélectionne ton fichier .docx corrigé</label>
-    
-    <input id="step2File" type="file" accept=".docx" style="display: none;" />
-    
-    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
-      <label for="step2File" class="ghost" style="padding: 10px 14px; border-radius: 12px; border: 1fr solid var(--brand); cursor: pointer; font-weight: 600; font-size: 13px; margin: 0;">
-        Parcourir...
-      </label>
-      <span id="fileNameDisplay" style="font-size: 13px; color: var(--muted);">Aucun fichier sélectionné</span>
+      <p>Télécharge et corrige le document Word suivant : </p>
+      <a id="step2DocLink"
+        href="https://plpilon.github.io/ccap-ccpa/CCAP - Rapport d’évaluation - Leadership numérique.docx"
+        download>Rapport d’évaluation - Leadership numérique</a>
+      <p>Temps restant: <span class="mono" id="step2Countdown">20:00</span></p>
+
+      <div class="card" style="margin-top:12px">
+        <h2>Remise du fichier</h2>
+        <div class="field">
+          <label>Sélectionne ton fichier .docx corrigé</label>
+
+          <input id="step2File" type="file" accept=".docx" style="display: none;" />
+
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+            <label for="step2File" class="ghost"
+              style="padding: 10px 14px; border-radius: 12px; border: 1fr solid var(--brand); cursor: pointer; font-weight: 600; font-size: 13px; margin: 0;">
+              Parcourir...
+            </label>
+            <span id="step2FileNameDisplay" style="font-size: 13px; color: var(--muted);">Aucun fichier
+              sélectionné</span>
+          </div>
+        </div>
+
+        <div class="btns">
+          <button id="btnUploadStep2" type="button">Soumettre le fichier</button>
+
+          <button id="btnToStep3" class="ghost" disabled>Aller à l'étape 3</button>
+        </div>
+        <div class="status" id="step2UploadStatus">Lorsque le fichier aura été soumis, l'étape 3 sera débloquée.</div>
+      </div>
+
+      <div class="btns" style="margin-top:12px">
+        <button class="ghost" id="btnBackToStep1">Retour à l'étape 1</button>
+      </div>
     </div>
-  </div>
-
-  <div class="btns">
-    <button id="btnUploadStep2">Soumettre le fichier</button>
-    <button id="btnToStep3" class="ghost" disabled>Aller à l'étape 3</button>
-  </div>
-  <div class="status" id="step2UploadStatus">Lorsque le fichier aura été soumis, l'étape 3 sera débloquée.</div>
-</div>
-
-  <div class="btns" style="margin-top:12px">
-    <button class="ghost" id="btnBackToStep1">Retour à l'étape 1</button>
-  </div>
-</div>
 
     <!-- STEP 3 -->
     <div class="stepcard card" id="step3">
-      <h2>Étape 3</h2>
-      <div class="status">
-        Token détecté: <span class="mono" id="tokenStep3"></span>
-        <div class="hr"></div>
-        Mets ici le contenu de ton étape 3.
-      </div>
-      <div class="btns">
-        <button class="ghost" id="btnBackToStep2">Retour à l'étape 2</button>
+      <p>Télécharge et corrige le fichier Excel suivant :</p>
+
+      <a id="step3DocLink"
+        href="https://plpilon.github.io/ccap-ccpa/CCAP%20-%20Sondage%20-%20Leadership%20num%C3%A9rique.xlsx"
+        download>Sondage - Leadership numérique.xlsx</a>
+
+      <p>Temps restant: <span class="mono" id="step3Countdown">20:00</span></p>
+
+      <div class="card" style="margin-top:12px">
+        <h2>Remise du fichier</h2>
+
+        <div class="field">
+          <label>Sélectionne ton fichier .xlsx corrigé</label>
+
+          <!-- FIX: accept xlsx and unique ids -->
+          <input id="step3File" type="file" accept=".xlsx" style="display:none;">
+
+
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+            <label for="step3File" class="ghost"
+              style="padding:10px 14px; border-radius:12px; border:1px solid var(--brand); cursor:pointer; font-weight:600; font-size:13px; margin:0;">
+              Parcourir...
+            </label>
+
+            <!-- FIX: unique span id -->
+            <span id="step3FileNameDisplay" style="font-size:13px; color:var(--muted);">
+              Aucun fichier sélectionné
+            </span>
+          </div>
+        </div>
+
+        <div class="btns">
+          <button id="btnUploadStep3" type="button">Soumettre le fichier</button>
+
+        </div>
+
+        <div class="status" id="step3UploadStatus">
+          Lorsque le fichier aura été soumis, l'évaluation sera terminée.
+        </div>
       </div>
     </div>
-  </div>
+    <!-- Console Footer -->
+    <div class="console-footer">
+      <span class="status-dot" id="statusDot"></span>
+      <span>Statut: <strong id="consoleStatus">non connecté</strong></span>
+      <span id="consoleTokenArea" style="display:none;">Jeton: <span class="token-display"
+          id="consoleToken"></span></span>
+      <button id="btnConsoleAction" type="button" class="ghost" style="display:none;">Déconnexion</button>
+    </div>
 
-  <!-- Console Footer -->
-  <div class="console-footer">
-    <span class="status-dot" id="statusDot"></span>
-    <span>Statut: <strong id="consoleStatus">non connecté</strong></span>
-    <span id="consoleTokenArea" style="display:none;">Jeton: <span class="token-display" id="consoleToken"></span></span>
-    <button id="btnConsoleAction" type="button" class="ghost" style="display:none;">Déconnexion</button>
-  </div>
+    <!-- Modal Login -->
+    <div id="loginModal" hidden role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+      <div class="modal-overlay">
+        <div class="modal-content">
+          <h2 id="loginTitle">Se connecter</h2>
+          <p>Renseigne ton identité. Un token sera généré ou réutilisé.</p>
 
-  <!-- Modal Login -->
-  <div id="loginModal" hidden role="dialog" aria-modal="true" aria-labelledby="loginTitle">
-    <div class="modal-overlay">
-      <div class="modal-content">
-        <h2 id="loginTitle">Se connecter</h2>
-        <p>Renseigne ton identité. Un token sera généré ou réutilisé.</p>
+          <form id="loginForm">
+            <div>
+              <label for="modalFirstName">Prénom</label>
+              <input id="modalFirstName" autocomplete="given-name" />
+            </div>
+            <div>
+              <label for="modalLastName">Nom</label>
+              <input id="modalLastName" autocomplete="family-name" />
+            </div>
+            <div>
+              <label for="modalStudentId">Numéro étudiant ou courriel</label>
+              <input id="modalStudentId" autocomplete="username" required />
+            </div>
 
-        <form id="loginForm">
-          <div>
-            <label for="modalFirstName">Prénom</label>
-            <input id="modalFirstName" autocomplete="given-name" />
-          </div>
-          <div>
-            <label for="modalLastName">Nom</label>
-            <input id="modalLastName" autocomplete="family-name" />
-          </div>
-          <div>
-            <label for="modalStudentId">Numéro étudiant ou courriel</label>
-            <input id="modalStudentId" autocomplete="username" required />
-          </div>
+            <div class="modal-buttons">
+              <button type="submit">Se connecter</button>
+              <button type="button" id="btnCloseModal" class="ghost">Annuler</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Modal: Evaluation complete -->
+    <div id="doneModal" hidden role="dialog" aria-modal="true" aria-labelledby="doneTitle">
+      <div class="modal-overlay">
+        <div class="modal-content">
+          <h2 id="doneTitle">Évaluation terminée</h2>
+          <p>Vous pouvez fermer la fenêtre.</p>
 
           <div class="modal-buttons">
-            <button type="submit">Se connecter</button>
-            <button type="button" id="btnCloseModal" class="ghost">Annuler</button>
+            <button type="button" id="btnCloseDone">OK</button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
-  </div>
 
-<script>
-/* =========================
-   CONFIG
-========================= */
-const MAX_ATTEMPTS = 3;
-const ATTEMPT_DURATION_SEC = 60;
-const GLOBAL_LIMIT_SEC = 5 * 60;
-const STEP2_LIMIT_SEC = 20 * 60;
-const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbxma1DUGVpepCZcwWRViILwftO1d8W_dEAwdX-tsIduxGrt_98jUOSUzrMKl061tLUsxw/exec";
-
-/* =========================
-   TEXTS
-========================= */
-const TEXTS = [
-  "Dans un milieu de travail, la qualité des données dépend autant des outils que des habitudes. Un bon fichier, c'est un fichier clair, cohérent, et facile à reprendre par quelqu'un d'autre. Tu n'écris pas seulement pour toi, tu écris pour l'équipe.",
-  "La technologie peut accélérer une tâche, mais elle peut aussi amplifier une erreur. Avant d'automatiser, il faut comprendre le problème, valider les entrées, et vérifier les résultats. Une minute de vérification peut éviter une journée de reprise.",
-  "Un message professionnel doit être simple et précis. Explique le contexte, dis ce que tu proposes, et indique ce que tu attends de l'autre personne. Si tu peux, ajoute une échéance. La clarté réduit les allers retours et aide tout le monde."
-];
-
-/* =========================
-   STATE
-========================= */
-let state = {
-  token: "",
-  step: 1,
-  globalStartMs: null,
-  globalTimerId: null,
-  attemptActive: false,
-  attemptStartMs: null,
-  attemptTickId: null,
-  attempts: [],
-  attemptsCompleted: 0,
-  focusLost: 0,
-  backspaces: 0,
-  isSubmitted: false,
-  currentTextIndex: 0
-};
-
-let step2StartMs = null;
-let step2TickId = null;
-let step2Timeouts = [];
-
-/* =========================
-   DOM HELPERS (null-safe)
-========================= */
-function $(id){ return document.getElementById(id); }
-function setText(id, value){
-  const el = $(id);
-  if (el) el.textContent = value;
-}
-function setShow(id, show, displayValue){
-  const el = $(id);
-  if (!el) return;
-  el.style.display = show ? (displayValue || "inline-block") : "none";
-}
-
-/* =========================
-   IDENTITY PERSISTENCE (localStorage)
-========================= */
-const IDENTITY_KEY = "ccap_eval_identity_v1";
-
-function loadIdentity(){
-  try{
-    const raw = localStorage.getItem(IDENTITY_KEY);
-    return raw ? JSON.parse(raw) : null;
-  } catch {
-    return null;
-  }
-}
-
-function saveIdentity(obj){
-  try{
-    localStorage.setItem(IDENTITY_KEY, JSON.stringify(obj));
-  } catch {
-    // ignore storage issues
-  }
-}
-
-function clearIdentity(){
-  try{
-    localStorage.removeItem(IDENTITY_KEY);
-  } catch {
-    // ignore
-  }
-}
-
-function isLoggedIn(){
-  const id = loadIdentity();
-  return !!(id && id.token && id.studentId);
-}
-
-function tokenShort(t){
-  if (!t) return "";
-  return t.slice(0, 8);
-}
-
-/* =========================
-   IDENTITY HELPERS
-========================= */
-function getUrlParam(name){
-  return new URLSearchParams(location.search).get(name);
-}
-
-function genToken(){
-  if (crypto && crypto.randomUUID) return crypto.randomUUID();
-  const bytes = new Uint8Array(16);
-  (crypto || window.msCrypto).getRandomValues(bytes);
-  return [...bytes].map(b => b.toString(16).padStart(2,"0")).join("");
-}
-
-function updateLoginUI(){
-  const id = loadIdentity();
-  const loggedIn = isLoggedIn();
-
-  // Breadcrumb area
-  const btnLogin = $("btnLogin");
-  const loginPill = $("loginPill");
-
-  if (btnLogin) btnLogin.style.display = loggedIn ? "none" : "inline-block";
-  if (loginPill) loginPill.style.display = loggedIn ? "inline-flex" : "none";
-  setText("breadcrumbToken", loggedIn && id ? tokenShort(id.token) : "");
-
-  // Console footer
-  const statusDot = $("statusDot");
-  const consoleStatus = $("consoleStatus");
-  const consoleTokenArea = $("consoleTokenArea");
-  const btnConsoleAction = $("btnConsoleAction");
-
-  if (statusDot) statusDot.classList.toggle("connected", loggedIn);
-  if (consoleStatus) consoleStatus.textContent = loggedIn ? "connecté" : "non connecté";
-  if (consoleTokenArea) consoleTokenArea.style.display = loggedIn ? "inline" : "none";
-  setText("consoleToken", loggedIn && id ? tokenShort(id.token) : "");
-
-  if (btnConsoleAction){
-    btnConsoleAction.style.display = loggedIn ? "inline-block" : "none";
-    btnConsoleAction.textContent = "Déconnexion";
-  }
-}
-
-function openModal(){
-  const modal = $("loginModal");
-  if (!modal) return;
-  modal.hidden = false;
-
-  const cached = loadIdentity();
-  if (cached){
-    const fn = $("modalFirstName");
-    const ln = $("modalLastName");
-    const sid = $("modalStudentId");
-    if (fn) fn.value = cached.firstName || "";
-    if (ln) ln.value = cached.lastName || "";
-    if (sid) sid.value = cached.studentId || "";
-  }
-
-  const sid = $("modalStudentId");
-  if (sid) sid.focus();
-}
-
-function closeModal(){
-  const modal = $("loginModal");
-  if (modal) modal.hidden = true;
-}
-
-/* =========================
-   STEP 2 TIMER
-========================= */
-function clearStep2Timer(){
-  step2Timeouts.forEach(id => clearTimeout(id));
-  step2Timeouts = [];
-  if (step2TickId) clearInterval(step2TickId);
-  step2TickId = null;
-}
-
-function startStep2Timer(){
-  clearStep2Timer();
-  step2StartMs = Date.now();
-
-  step2Timeouts.push(setTimeout(() => {
-    if (state.step === 2) alert("Il reste 2 minutes.");
-  }, (STEP2_LIMIT_SEC - 120) * 1000));
-
-  step2Timeouts.push(setTimeout(() => {
-    if (state.step === 2) alert("Il reste 1 minute.");
-  }, (STEP2_LIMIT_SEC - 60) * 1000));
-
-  step2Timeouts.push(setTimeout(() => {
-    if (state.step === 2) {
-      alert("Temps écoulé. Soumets immédiatement ton fichier.");
-      setText("step2UploadStatus", "Temps écoulé. Soumets immédiatement ton fichier.");
-    }
-  }, STEP2_LIMIT_SEC * 1000));
-
-  step2TickId = setInterval(() => {
-    const elapsed = Math.floor((Date.now() - step2StartMs) / 1000);
-    const remaining = Math.max(0, STEP2_LIMIT_SEC - elapsed);
-
-    // Calculate minutes and seconds
-    const mins = Math.floor(remaining / 60);
-    const secs = remaining % 60;
-
-    // Format as MM:SS (e.g., 19:05)
-    const displayTime = `${mins}:${String(secs).padStart(2, '0')}`;
-    
-    setText("step2Countdown", displayTime);
-
-    if (remaining <= 0) clearStep2Timer();
-  }, 250);
-}
-
-/* =========================
-   NAV + RENDER
-========================= */
-function setUrl(step, token){
-  const u = new URL(location.href);
-  u.searchParams.set("step", String(step));
-  u.searchParams.set("token", token);
-  history.replaceState({}, "", u.toString());
-}
-
-function renderByStep(step){
-  document.querySelectorAll(".stepcard").forEach(el => el.classList.remove("active"));
-  const current = $("step" + step);
-  if (current) current.classList.add("active");
-
-  if (step === 2){
-    setText("tokenStep2", state.token);
-    startStep2Timer();
-  } else {
-    clearStep2Timer();
-  }
-
-  if (step === 3){
-    setText("tokenStep3", state.token);
-  }
-
-  updateLoginUI();
-}
-
-function navigateToStep(step){
-  state.step = step;
-  setUrl(step, state.token);
-  renderByStep(step);
-}
-
-/* =========================
-   HELPERS
-========================= */
-function clamp(n, a, b){ return Math.min(b, Math.max(a, n)); }
-function round1(x){ return Math.round(x * 10) / 10; }
-
-function setStatus(msg, cls){
-  const el = $("statusBox");
-  if (!el) return;
-  el.classList.remove("ok","warn","bad");
-  if (cls) el.classList.add(cls);
-  el.textContent = msg;
-}
-
-function getElapsedSec(startMs){
-  return Math.max(0, Math.floor((Date.now() - startMs) / 1000));
-}
-
-function bestAttempt(){
-  if (state.attempts.length === 0) return null;
-  return state.attempts.slice().sort((a,b)=>{
-    if (b.netWpm !== a.netWpm) return b.netWpm - a.netWpm;
-    return b.accuracyPct - a.accuracyPct;
-  })[0];
-}
-
-function computeMetrics(targetText, typedText, durationSec){
-  const totalTyped = typedText.length;
-  let correctChars = 0;
-  let errors = 0;
-
-  const n = Math.max(targetText.length, typedText.length);
-  for (let i = 0; i < n; i++){
-    const t = targetText[i] ?? "";
-    const c = typedText[i] ?? "";
-    if (c === "") continue;
-    if (c === t) correctChars++;
-    else errors++;
-  }
-
-  const minutes = durationSec / 60;
-  const grossWpm = minutes > 0 ? (totalTyped / 5) / minutes : 0;
-  const netWpm = Math.max(0, grossWpm - (errors / minutes));
-  const accuracyPct = totalTyped > 0 ? (correctChars / totalTyped) * 100 : 0;
-
-  return {
-    grossWpm: round1(grossWpm),
-    netWpm: round1(netWpm),
-    accuracyPct: round1(accuracyPct),
-    errors,
-    correctChars,
-    totalTyped,
-    durationSec
-  };
-}
-
-function setTargetText(index){
-  state.currentTextIndex = index;
-  setText("targetMeta", `Texte ${index + 1} sur 3`);
-  setText("targetText", TEXTS[index]);
-}
-
-/* =========================
-   TIMERS + ATTEMPTS
-========================= */
-function startGlobalTimer(){
-  state.globalStartMs = Date.now();
-  state.globalTimerId = setInterval(()=>{
-    const elapsed = getElapsedSec(state.globalStartMs);
-    const remaining = clamp(GLOBAL_LIMIT_SEC - elapsed, 0, GLOBAL_LIMIT_SEC);
-    setText("kGlobalTime", String(remaining));
-    if (elapsed >= GLOBAL_LIMIT_SEC){
-      stopAttemptIfRunning(true);
-      autoSubmit("time_limit");
-    }
-  }, 200);
-}
-
-function stopGlobalTimer(){
-  if (state.globalTimerId) clearInterval(state.globalTimerId);
-  state.globalTimerId = null;
-}
-
-function startAttempt(){
-  if (state.attemptActive) return;
-  if (state.attemptsCompleted >= MAX_ATTEMPTS) return;
-
-  setTargetText(state.attemptsCompleted % 3);
-
-  state.attemptActive = true;
-  state.attemptStartMs = Date.now();
-
-  const input = $("typingInput");
-  if (input){
-    input.disabled = false;
-    input.value = "";
-    input.focus();
-  }
-
-  if ($("btnFinish")) $("btnFinish").disabled = false;
-  if ($("btnForceSubmit")) $("btnForceSubmit").disabled = false;
-  if ($("btnNext")) $("btnNext").disabled = true;
-
-  setStatus(`Essai ${state.attemptsCompleted + 1} en cours.`, "warn");
-
-  state.attemptTickId = setInterval(()=>{
-    const elapsed = getElapsedSec(state.attemptStartMs);
-    const remaining = clamp(ATTEMPT_DURATION_SEC - elapsed, 0, ATTEMPT_DURATION_SEC);
-    setText("kAttemptTime", String(remaining));
-    if (elapsed >= ATTEMPT_DURATION_SEC){
-      finishAttempt("time_up");
-    }
-  }, 100);
-}
-
-function stopAttemptIfRunning(forceFinish){
-  if (!state.attemptActive) return;
-  if (forceFinish) finishAttempt("forced_by_global");
-  else {
-    clearInterval(state.attemptTickId);
-    state.attemptTickId = null;
-    state.attemptActive = false;
-    if ($("typingInput")) $("typingInput").disabled = true;
-  }
-}
-
-function finishAttempt(reason){
-  if (!state.attemptActive) return;
-
-  clearInterval(state.attemptTickId);
-  state.attemptTickId = null;
-
-  const attemptEndMs = Date.now();
-  const actualDuration = clamp(Math.floor((attemptEndMs - state.attemptStartMs)/1000), 1, ATTEMPT_DURATION_SEC);
-
-  const target = TEXTS[state.currentTextIndex];
-  const typed = ($("typingInput") && $("typingInput").value) ? $("typingInput").value : "";
-
-  const metrics = computeMetrics(target, typed, actualDuration);
-
-  state.attemptsCompleted++;
-  state.attempts.push({
-    attemptNo: state.attemptsCompleted,
-    textNo: state.currentTextIndex + 1,
-    reason,
-    startedAt: new Date(state.attemptStartMs).toISOString(),
-    endedAt: new Date(attemptEndMs).toISOString(),
-    backspaces: state.backspaces,
-    ...metrics
-  });
-
-  state.backspaces = 0;
-  state.attemptActive = false;
-
-  if ($("typingInput")) $("typingInput").disabled = true;
-  if ($("btnFinish")) $("btnFinish").disabled = true;
-
-  setText("kAttempt", `${state.attemptsCompleted} / ${MAX_ATTEMPTS}`);
-  const best = bestAttempt();
-  setText("kBest", best ? String(best.netWpm.toFixed(1)) : "0.0");
-
-  setStatus(
-    `Essai ${state.attemptsCompleted} terminé.\nNet WPM: ${metrics.netWpm.toFixed(1)}\nPrécision: ${metrics.accuracyPct.toFixed(1)}%\nErreurs: ${metrics.errors}\nDurée: ${metrics.durationSec}s`,
-    "ok"
-  );
-
-  if (state.attemptsCompleted >= MAX_ATTEMPTS){
-    if ($("btnNext")) $("btnNext").disabled = true;
-    autoSubmit("attempt_limit");
-  } else {
-    if ($("btnNext")) $("btnNext").disabled = false;
-  }
-}
-
-/* =========================
-   SUBMISSION
-========================= */
-function buildPayload(reason){
-  const best = bestAttempt();
-  const id = loadIdentity();
-
-  return {
-    token: state.token,
-    step: 1,
-    reason,
-    studentId: id ? id.studentId : "",
-    firstName: id ? id.firstName : "",
-    lastName: id ? id.lastName : "",
-    attemptsCompleted: state.attemptsCompleted,
-    attempts: state.attempts,
-    best: best,
-    focusLost: state.focusLost,
-    totalTimeSec: state.globalStartMs ? getElapsedSec(state.globalStartMs) : null,
-    userAgent: navigator.userAgent
-  };
-}
-
-async function autoSubmit(reason){
-  if (state.isSubmitted) return;
-  state.isSubmitted = true;
-
-  stopAttemptIfRunning(false);
-  stopGlobalTimer();
-
-  const payload = buildPayload(reason);
-
-  let submitOk = false;
-  let submitMsg = "";
-
-  if (ENDPOINT_URL){
-    try{
-      await fetch(ENDPOINT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: {"Content-Type":"application/json"},
-        body: JSON.stringify(payload),
-        keepalive: true
-      });
-      submitOk = true;
-      submitMsg = "Résultats envoyés (enregistrement dans Sheets).";
-    } catch(err){
-      submitMsg = "Envoi échoué, passage quand même à l'étape 2.";
-    }
-  } else {
-    submitMsg = "Aucun endpoint configuré, pas d'enregistrement serveur.";
-  }
-
-  const b = payload.best
-    ? `Meilleur score conservé.\nNet WPM: ${payload.best.netWpm.toFixed(1)}\nPrécision: ${payload.best.accuracyPct.toFixed(1)}%\nErreurs: ${payload.best.errors}`
-    : "Aucun essai complété.";
-
-  setStatus(`${b}\n${submitMsg}\nRedirection vers l'étape 2...`, submitOk ? "ok" : "warn");
-
-  navigateToStep(2);
-}
-
-/* =========================
-   STEP 2 FILE UPLOAD
-========================= */
-function readFileAsBase64(file){
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const result = String(reader.result || "");
-      const comma = result.indexOf(",");
-      resolve(comma >= 0 ? result.slice(comma + 1) : result);
-    };
-    reader.onerror = () => reject(reader.error || new Error("FileReader error"));
-    reader.readAsDataURL(file);
-  });
-}
-
-async function submitStep2File(){
-  const fileInput = $("step2File");
-  const statusEl = $("step2UploadStatus");
-
-  if (!statusEl) return;
-
-  if (!ENDPOINT_URL){
-    statusEl.textContent = "ENDPOINT_URL n'est pas configuré.";
-    return;
-  }
-
-  if (!fileInput || !fileInput.files || fileInput.files.length === 0){
-    statusEl.textContent = "Choisis un fichier .docx avant de soumettre.";
-    return;
-  }
-
-  const file = fileInput.files[0];
-  if (!file.name.toLowerCase().endsWith(".docx")){
-    statusEl.textContent = "Format invalide. Soumets un .docx.";
-    return;
-  }
-
-  statusEl.textContent = "Envoi du fichier en cours...";
-
-  try {
-    const b64 = await readFileAsBase64(file);
-    const id = loadIdentity();
-
-    const payload = {
-      token: state.token,
-      step: 2,
-      reason: "step2_upload",
-      studentId: id ? id.studentId : "",
-      firstName: id ? id.firstName : "",
-      lastName: id ? id.lastName : "",
-      best: bestAttempt(),
-      attemptsCompleted: state.attemptsCompleted,
-      attempts: state.attempts,
-      focusLost: state.focusLost,
-      totalTimeSec: state.globalStartMs ? getElapsedSec(state.globalStartMs) : null,
-      userAgent: navigator.userAgent,
-      file: {
-        name: file.name,
-        mimeType: file.type || "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        base64: b64
+    <script>
+      /* =========================
+         CONFIG
+      ========================= */
+      const MAX_ATTEMPTS = 3;
+      const ATTEMPT_DURATION_SEC = 60;
+      const GLOBAL_LIMIT_SEC = 5 * 60;
+      const STEP2_LIMIT_SEC = 20 * 60;
+      const STEP3_LIMIT_SEC = 20 * 60;
+
+      const ENDPOINT_URL =
+        "https://script.google.com/macros/s/AKfycbxma1DUGVpepCZcwWRViILwftO1d8W_dEAwdX-tsIduxGrt_98jUOSUzrMKl061tLUsxw/exec";
+
+      /* =========================
+         TEXTS
+      ========================= */
+      const TEXTS = [
+        "Dans un milieu de travail, la qualité des données dépend autant des outils que des habitudes. Un bon fichier, c'est un fichier clair, cohérent, et facile à reprendre par quelqu'un d'autre. Tu n'écris pas seulement pour toi, tu écris pour l'équipe.",
+        "La technologie peut accélérer une tâche, mais elle peut aussi amplifier une erreur. Avant d'automatiser, il faut comprendre le problème, valider les entrées, et vérifier les résultats. Une minute de vérification peut éviter une journée de reprise.",
+        "Un message professionnel doit être simple et précis. Explique le contexte, dis ce que tu proposes, et indique ce que tu attends de l'autre personne. Si tu peux, ajoute une échéance. La clarté réduit les allers retours et aide tout le monde."
+      ];
+
+      /* =========================
+         STATE
+      ========================= */
+      let state = {
+        token: "",
+        step: 1,
+        globalStartMs: null,
+        globalTimerId: null,
+        attemptActive: false,
+        attemptStartMs: null,
+        attemptTickId: null,
+        attempts: [],
+        attemptsCompleted: 0,
+        focusLost: 0,
+        backspaces: 0,
+        isSubmitted: false,
+        currentTextIndex: 0
+      };
+
+      let step2StartMs = null;
+      let step2TickId = null;
+      let step2Timeouts = [];
+      let step3StartMs = null;
+      let step3TickId = null;
+      let step3Timeouts = [];
+
+      /* =========================
+         DOM HELPERS (null-safe)
+      ========================= */
+      function $(id) {
+        return document.getElementById(id);
       }
-    };
-
-    await fetch(ENDPOINT_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "text/plain;charset=UTF-8" },
-      body: JSON.stringify(payload)
-    });
-
-    statusEl.textContent = "Soumission envoyée. Étape 3 débloquée.";
-    if ($("btnToStep3")) $("btnToStep3").disabled = false;
-    clearStep2Timer();
-  } catch (err){
-    statusEl.textContent = "Erreur lors de la soumission. Réessaie.";
-  }
-}
-
-/* =========================
-   INIT
-========================= */
-function init(){
-  const urlToken = getUrlParam("token");
-  const urlStep = parseInt(getUrlParam("step") || "1", 10);
-
-  const stored = loadIdentity();
-
-  if (urlToken) {
-    state.token = urlToken;
-    saveIdentity({
-      token: urlToken,
-      firstName: stored ? (stored.firstName || "") : "",
-      lastName: stored ? (stored.lastName || "") : "",
-      studentId: stored ? (stored.studentId || "Utilisateur") : "Utilisateur"
-    });
-  } else if (stored && stored.token) {
-    state.token = stored.token;
-  } else {
-    state.token = genToken();
-    // keep token to allow resume, but not "logged in" yet
-    saveIdentity({ token: state.token, firstName: "", lastName: "", studentId: "" });
-  }
- // Inside your init function or at the bottom of the script
-const fileInput = $("step2File");
-const nameDisplay = $("fileNameDisplay");
-
-if (fileInput && nameDisplay) {
-  fileInput.addEventListener("change", (e) => {
-    const fileName = e.target.files.length > 0 ? e.target.files[0].name : "Aucun fichier sélectionné";
-    nameDisplay.textContent = fileName;
-  });
-}
-  updateLoginUI();
-
-  window.addEventListener("blur", ()=>{ state.focusLost++; });
-
-  const typingInput = $("typingInput");
-  if (typingInput){
-    typingInput.addEventListener("keydown", (e)=>{
-      if (e.key === "Backspace") state.backspaces++;
-      if ((e.ctrlKey || e.metaKey) && (e.key.toLowerCase() === "v")) {
-        e.preventDefault();
-        return false;
+      function setText(id, value) {
+        const el = $(id);
+        if (el) el.textContent = value;
       }
-    });
-    typingInput.addEventListener("paste", (e)=>{
-      e.preventDefault();
-      return false;
-    });
-  }
-
-  setTargetText(0);
-
-  // Login handlers
-  if ($("btnLogin")) $("btnLogin").addEventListener("click", openModal);
-  if ($("loginPill")) $("loginPill").addEventListener("click", openModal);
-  if ($("btnCloseModal")) $("btnCloseModal").addEventListener("click", closeModal);
-
-  const loginForm = $("loginForm");
-  if (loginForm){
-    loginForm.addEventListener("submit", (e)=>{
-      e.preventDefault();
-
-      const firstName = String(($("modalFirstName") && $("modalFirstName").value) || "").trim();
-      const lastName  = String(($("modalLastName") && $("modalLastName").value) || "").trim();
-      const studentId = String(($("modalStudentId") && $("modalStudentId").value) || "").trim();
-
-      if (!studentId){
-        alert("Ajoute au moins un numéro étudiant ou un courriel.");
-        return;
+      function setShow(id, show, displayValue) {
+        const el = $(id);
+        if (!el) return;
+        el.style.display = show ? displayValue || "inline-block" : "none";
       }
 
-      const cached = loadIdentity();
-      const token = (cached && cached.token) ? cached.token : state.token;
+      /* =========================
+         GENERIC ASYNC HELPERS
+      ========================= */
+      function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-      saveIdentity({ token, firstName, lastName, studentId });
-      state.token = token;
-      updateLoginUI();
-      closeModal();
-    });
-  }
+      async function fetchWithTimeout(url, opts, timeoutMs) {
+        const controller = new AbortController();
+        const t = setTimeout(() => controller.abort(), timeoutMs);
+        try {
+          return await fetch(url, { ...opts, signal: controller.signal });
+        } finally {
+          clearTimeout(t);
+        }
+      }
 
-  if ($("btnConsoleAction")){
-    $("btnConsoleAction").addEventListener("click", ()=>{
-      if (isLoggedIn()) {
-        clearIdentity();
+      function readFileAsBase64(file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const result = String(reader.result || "");
+            const comma = result.indexOf(",");
+            resolve(comma >= 0 ? result.slice(comma + 1) : result);
+          };
+          reader.onerror = () => reject(reader.error || new Error("FileReader error"));
+          reader.readAsDataURL(file);
+        });
+      }
+
+      function readFileAsBase64WithTimeout(file, timeoutMs, onStage) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          const t = setTimeout(() => {
+            try {
+              reader.abort();
+            } catch { }
+            reject(new Error("FileReader timeout after " + timeoutMs + "ms"));
+          }, timeoutMs);
+
+          reader.onloadstart = () => {
+            if (onStage) onStage("FileReader: start");
+          };
+          reader.onerror = () => {
+            clearTimeout(t);
+            reject(reader.error || new Error("FileReader error"));
+          };
+          reader.onload = () => {
+            clearTimeout(t);
+            const result = String(reader.result || "");
+            const comma = result.indexOf(",");
+            resolve(comma >= 0 ? result.slice(comma + 1) : result);
+          };
+
+          reader.readAsDataURL(file);
+        });
+      }
+
+      /* =========================
+         IDENTITY PERSISTENCE (localStorage)
+      ========================= */
+      const IDENTITY_KEY = "ccap_eval_identity_v1";
+
+      function loadIdentity() {
+        try {
+          const raw = localStorage.getItem(IDENTITY_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch {
+          return null;
+        }
+      }
+
+      function saveIdentity(obj) {
+        try {
+          localStorage.setItem(IDENTITY_KEY, JSON.stringify(obj));
+        } catch {
+          // ignore
+        }
+      }
+
+      function clearIdentity() {
+        try {
+          localStorage.removeItem(IDENTITY_KEY);
+        } catch {
+          // ignore
+        }
+      }
+
+      function isLoggedIn() {
+        const id = loadIdentity();
+        return !!(id && id.token && id.studentId);
+      }
+
+      function tokenShort(t) {
+        if (!t) return "";
+        return t.slice(0, 8);
+      }
+
+      /* =========================
+         IDENTITY HELPERS
+      ========================= */
+      function getUrlParam(name) {
+        return new URLSearchParams(location.search).get(name);
+      }
+
+      function genToken() {
+        if (crypto && crypto.randomUUID) return crypto.randomUUID();
+        const bytes = new Uint8Array(16);
+        (crypto || window.msCrypto).getRandomValues(bytes);
+        return [...bytes].map((b) => b.toString(16).padStart(2, "0")).join("");
+      }
+
+      function updateLoginUI() {
+        const id = loadIdentity();
+        const loggedIn = isLoggedIn();
+
+        // Breadcrumb area
+        const btnLogin = $("btnLogin");
+        const loginPill = $("loginPill");
+
+        if (btnLogin) btnLogin.style.display = loggedIn ? "none" : "inline-block";
+        if (loginPill) loginPill.style.display = loggedIn ? "inline-flex" : "none";
+        setText("breadcrumbToken", loggedIn && id ? tokenShort(id.token) : "");
+
+        // Console footer
+        const statusDot = $("statusDot");
+        const consoleStatus = $("consoleStatus");
+        const consoleTokenArea = $("consoleTokenArea");
+        const btnConsoleAction = $("btnConsoleAction");
+
+        if (statusDot) statusDot.classList.toggle("connected", loggedIn);
+        if (consoleStatus) consoleStatus.textContent = loggedIn ? "connecté" : "non connecté";
+        if (consoleTokenArea) consoleTokenArea.style.display = loggedIn ? "inline" : "none";
+        setText("consoleToken", loggedIn && id ? tokenShort(id.token) : "");
+
+        if (btnConsoleAction) {
+          btnConsoleAction.style.display = loggedIn ? "inline-block" : "none";
+          btnConsoleAction.textContent = "Déconnexion";
+        }
+      }
+
+      function openModal() {
+        const modal = $("loginModal");
+        if (!modal) return;
+        modal.hidden = false;
+
+        const cached = loadIdentity();
+        if (cached) {
+          const fn = $("modalFirstName");
+          const ln = $("modalLastName");
+          const sid = $("modalStudentId");
+          if (fn) fn.value = cached.firstName || "";
+          if (ln) ln.value = cached.lastName || "";
+          if (sid) sid.value = cached.studentId || "";
+        }
+
+        const sid = $("modalStudentId");
+        if (sid) sid.focus();
+      }
+
+      function closeModal() {
+        const modal = $("loginModal");
+        if (modal) modal.hidden = true;
+      }
+
+      /* =========================
+         FILE NAME DISPLAY (Step2 + Step3)
+      ========================= */
+      function wireFileNameDisplay(inputId, displayId) {
+        const inp = $(inputId);
+        const out = $(displayId);
+        if (!inp || !out) return;
+
+        inp.addEventListener("change", () => {
+          out.textContent = inp.files && inp.files.length ? inp.files[0].name : "Aucun fichier sélectionné";
+        });
+      }
+
+      /* =========================
+         STEP 2 TIMER
+      ========================= */
+      function clearStep2Timer() {
+        step2Timeouts.forEach((id) => clearTimeout(id));
+        step2Timeouts = [];
+        if (step2TickId) clearInterval(step2TickId);
+        step2TickId = null;
+      }
+
+      function startStep2Timer() {
+        clearStep2Timer();
+        step2StartMs = Date.now();
+
+        step2Timeouts.push(
+          setTimeout(() => {
+            if (state.step === 2) alert("Il reste 2 minutes.");
+          }, (STEP2_LIMIT_SEC - 120) * 1000)
+        );
+
+        step2Timeouts.push(
+          setTimeout(() => {
+            if (state.step === 2) alert("Il reste 1 minute.");
+          }, (STEP2_LIMIT_SEC - 60) * 1000)
+        );
+
+        step2Timeouts.push(
+          setTimeout(() => {
+            if (state.step === 2) {
+              alert("Temps écoulé. Soumets immédiatement ton fichier.");
+              setText("step2UploadStatus", "Temps écoulé. Soumets immédiatement ton fichier.");
+            }
+          }, STEP2_LIMIT_SEC * 1000)
+        );
+
+        step2TickId = setInterval(() => {
+          const elapsed = Math.floor((Date.now() - step2StartMs) / 1000);
+          const remaining = Math.max(0, STEP2_LIMIT_SEC - elapsed);
+
+          const mins = Math.floor(remaining / 60);
+          const secs = remaining % 60;
+          const displayTime = `${mins}:${String(secs).padStart(2, "0")}`;
+
+          setText("step2Countdown", displayTime);
+
+          if (remaining <= 0) clearStep2Timer();
+        }, 250);
+      }
+
+      /* =========================
+         STEP 3 TIMER
+      ========================= */
+      function clearStep3Timer() {
+        step3Timeouts.forEach(id => clearTimeout(id));
+        step3Timeouts = [];
+        if (step3TickId) clearInterval(step3TickId);
+        step3TickId = null;
+      }
+
+      function startStep3Timer() {
+        clearStep3Timer();
+        step3StartMs = Date.now();
+
+        step3Timeouts.push(setTimeout(() => {
+          if (state.step === 3) alert("Il reste 2 minutes.");
+        }, (STEP3_LIMIT_SEC - 120) * 1000));
+
+        step3Timeouts.push(setTimeout(() => {
+          if (state.step === 3) alert("Il reste 1 minute.");
+        }, (STEP3_LIMIT_SEC - 60) * 1000));
+
+        step3Timeouts.push(setTimeout(() => {
+          if (state.step === 3) {
+            alert("Temps écoulé. Soumets immédiatement ton fichier.");
+            setText("step3UploadStatus", "Temps écoulé. Soumets immédiatement ton fichier.");
+          }
+        }, STEP3_LIMIT_SEC * 1000));
+
+        step3TickId = setInterval(() => {
+          const elapsed = Math.floor((Date.now() - step3StartMs) / 1000);
+          const remaining = Math.max(0, STEP3_LIMIT_SEC - elapsed);
+
+          const mins = Math.floor(remaining / 60);
+          const secs = remaining % 60;
+          setText("step3Countdown", `${mins}:${String(secs).padStart(2, "0")}`);
+
+          if (remaining <= 0) clearStep3Timer();
+        }, 250);
+      }
+
+      /* =========================
+         NAV + RENDER
+      ========================= */
+      function setUrl(step, token) {
+        const u = new URL(location.href);
+        u.searchParams.set("step", String(step));
+        u.searchParams.set("token", token);
+        history.replaceState({}, "", u.toString());
+      }
+
+      function renderByStep(step) {
+        document.querySelectorAll(".stepcard").forEach((el) => el.classList.remove("active"));
+        const current = $("step" + step);
+        if (current) current.classList.add("active");
+
+        if (step === 2) {
+          setText("tokenStep2", state.token);
+          startStep2Timer();
+        } else {
+          clearStep2Timer();
+        }
+
+        if (step === 3) {
+          setText("tokenStep3", state.token);
+          startStep3Timer();
+        } else {
+          clearStep3Timer();
+        }
+
+
         updateLoginUI();
       }
-    });
-  }
 
-  // Step 1 buttons
-  if ($("btnStart")){
-    $("btnStart").addEventListener("click", ()=>{
-      if (state.globalStartMs) return;
-
-      if (!isLoggedIn()){
-        alert("Connecte-toi d'abord via le bouton en haut.");
-        openModal();
-        return;
+      function navigateToStep(step) {
+        state.step = step;
+        setUrl(step, state.token);
+        renderByStep(step);
       }
 
-      $("btnStart").disabled = true;
-      if ($("btnForceSubmit")) $("btnForceSubmit").disabled = false;
+      /* =========================
+         HELPERS
+      ========================= */
+      function clamp(n, a, b) {
+        return Math.min(b, Math.max(a, n));
+      }
+      function round1(x) {
+        return Math.round(x * 10) / 10;
+      }
 
-      setText("kAttempt", `0 / ${MAX_ATTEMPTS}`);
-      setText("kAttemptTime", String(ATTEMPT_DURATION_SEC));
-      setText("kGlobalTime", String(GLOBAL_LIMIT_SEC));
+      function setStatus(msg, cls) {
+        const el = $("statusBox");
+        if (!el) return;
+        el.classList.remove("ok", "warn", "bad");
+        if (cls) el.classList.add(cls);
+        el.textContent = msg;
+      }
 
-      startGlobalTimer();
-      startAttempt();
-    });
-  }
+      function getElapsedSec(startMs) {
+        return Math.max(0, Math.floor((Date.now() - startMs) / 1000));
+      }
 
-  if ($("btnFinish")) $("btnFinish").addEventListener("click", ()=> finishAttempt("manual_finish"));
+      function bestAttempt() {
+        if (state.attempts.length === 0) return null;
+        return state.attempts
+          .slice()
+          .sort((a, b) => {
+            if (b.netWpm !== a.netWpm) return b.netWpm - a.netWpm;
+            return b.accuracyPct - a.accuracyPct;
+          })[0];
+      }
 
-  if ($("btnNext")){
-    $("btnNext").addEventListener("click", ()=>{
-      if (state.attemptsCompleted >= MAX_ATTEMPTS) return;
-      if ($("typingInput")) $("typingInput").value = "";
-      setText("kAttemptTime", String(ATTEMPT_DURATION_SEC));
-      startAttempt();
-    });
-  }
+      function computeMetrics(targetText, typedText, durationSec) {
+        const totalTyped = typedText.length;
+        let correctChars = 0;
+        let errors = 0;
 
-  if ($("btnForceSubmit")){
-    $("btnForceSubmit").addEventListener("click", ()=>{
-      stopAttemptIfRunning(true);
-      autoSubmit("manual_submit");
-    });
-  }
+        const n = Math.max(targetText.length, typedText.length);
+        for (let i = 0; i < n; i++) {
+          const t = targetText[i] ?? "";
+          const c = typedText[i] ?? "";
+          if (c === "") continue;
+          if (c === t) correctChars++;
+          else errors++;
+        }
 
-  // Step navigation
-  if ($("btnToStep3")) $("btnToStep3").addEventListener("click", ()=> navigateToStep(3));
-  if ($("btnBackToStep1")) $("btnBackToStep1").addEventListener("click", ()=> navigateToStep(1));
-  if ($("btnBackToStep2")) $("btnBackToStep2").addEventListener("click", ()=> navigateToStep(2));
-  if ($("btnUploadStep2")) $("btnUploadStep2").addEventListener("click", submitStep2File);
+        const minutes = durationSec / 60;
+        const grossWpm = minutes > 0 ? totalTyped / 5 / minutes : 0;
+        const netWpm = Math.max(0, grossWpm - errors / minutes);
+        const accuracyPct = totalTyped > 0 ? (correctChars / totalTyped) * 100 : 0;
 
-  // Apply URL step
-  state.step = [1,2,3].includes(urlStep) ? urlStep : 1;
-  setUrl(state.step, state.token);
-  renderByStep(state.step);
-}
+        return {
+          grossWpm: round1(grossWpm),
+          netWpm: round1(netWpm),
+          accuracyPct: round1(accuracyPct),
+          errors,
+          correctChars,
+          totalTyped,
+          durationSec
+        };
+      }
 
-init();
-</script>
+      function setTargetText(index) {
+        state.currentTextIndex = index;
+        setText("targetMeta", `Texte ${index + 1} sur 3`);
+        setText("targetText", TEXTS[index]);
+      }
 
+      /* =========================
+         TIMERS + ATTEMPTS
+      ========================= */
+      function startGlobalTimer() {
+        state.globalStartMs = Date.now();
+        state.globalTimerId = setInterval(() => {
+          const elapsed = getElapsedSec(state.globalStartMs);
+          const remaining = clamp(GLOBAL_LIMIT_SEC - elapsed, 0, GLOBAL_LIMIT_SEC);
+          setText("kGlobalTime", String(remaining));
+          if (elapsed >= GLOBAL_LIMIT_SEC) {
+            stopAttemptIfRunning(true);
+            autoSubmit("time_limit");
+          }
+        }, 200);
+      }
+
+      function stopGlobalTimer() {
+        if (state.globalTimerId) clearInterval(state.globalTimerId);
+        state.globalTimerId = null;
+      }
+
+      function startAttempt() {
+        if (state.attemptActive) return;
+        if (state.attemptsCompleted >= MAX_ATTEMPTS) return;
+
+        setTargetText(state.attemptsCompleted % 3);
+
+        state.attemptActive = true;
+        state.attemptStartMs = Date.now();
+
+        const input = $("typingInput");
+        if (input) {
+          input.disabled = false;
+          input.value = "";
+          input.focus();
+        }
+
+        if ($("btnFinish")) $("btnFinish").disabled = false;
+        if ($("btnForceSubmit")) $("btnForceSubmit").disabled = false;
+        if ($("btnNext")) $("btnNext").disabled = true;
+
+        setStatus(`Essai ${state.attemptsCompleted + 1} en cours.`, "warn");
+
+        state.attemptTickId = setInterval(() => {
+          const elapsed = getElapsedSec(state.attemptStartMs);
+          const remaining = clamp(ATTEMPT_DURATION_SEC - elapsed, 0, ATTEMPT_DURATION_SEC);
+          setText("kAttemptTime", String(remaining));
+          if (elapsed >= ATTEMPT_DURATION_SEC) {
+            finishAttempt("time_up");
+          }
+        }, 100);
+      }
+
+      function stopAttemptIfRunning(forceFinish) {
+        if (!state.attemptActive) return;
+        if (forceFinish) finishAttempt("forced_by_global");
+        else {
+          clearInterval(state.attemptTickId);
+          state.attemptTickId = null;
+          state.attemptActive = false;
+          if ($("typingInput")) $("typingInput").disabled = true;
+        }
+      }
+
+      function finishAttempt(reason) {
+        if (!state.attemptActive) return;
+
+        clearInterval(state.attemptTickId);
+        state.attemptTickId = null;
+
+        const attemptEndMs = Date.now();
+        const actualDuration = clamp(Math.floor((attemptEndMs - state.attemptStartMs) / 1000), 1, ATTEMPT_DURATION_SEC);
+
+        const target = TEXTS[state.currentTextIndex];
+        const typed = $("typingInput") && $("typingInput").value ? $("typingInput").value : "";
+
+        const metrics = computeMetrics(target, typed, actualDuration);
+
+        state.attemptsCompleted++;
+        state.attempts.push({
+          attemptNo: state.attemptsCompleted,
+          textNo: state.currentTextIndex + 1,
+          reason,
+          startedAt: new Date(state.attemptStartMs).toISOString(),
+          endedAt: new Date(attemptEndMs).toISOString(),
+          backspaces: state.backspaces,
+          ...metrics
+        });
+
+        state.backspaces = 0;
+        state.attemptActive = false;
+
+        if ($("typingInput")) $("typingInput").disabled = true;
+        if ($("btnFinish")) $("btnFinish").disabled = true;
+
+        setText("kAttempt", `${state.attemptsCompleted} / ${MAX_ATTEMPTS}`);
+        const best = bestAttempt();
+        setText("kBest", best ? String(best.netWpm.toFixed(1)) : "0.0");
+
+        setStatus(
+          `Essai ${state.attemptsCompleted} terminé.\nNet WPM: ${metrics.netWpm.toFixed(1)}\nPrécision: ${metrics.accuracyPct.toFixed(
+            1
+          )}%\nErreurs: ${metrics.errors}\nDurée: ${metrics.durationSec}s`,
+          "ok"
+        );
+
+        if (state.attemptsCompleted >= MAX_ATTEMPTS) {
+          if ($("btnNext")) $("btnNext").disabled = true;
+          autoSubmit("attempt_limit");
+        } else {
+          if ($("btnNext")) $("btnNext").disabled = false;
+        }
+      }
+
+      /* =========================
+         SUBMISSION (STEP 1)
+      ========================= */
+      function buildPayload(reason) {
+        const best = bestAttempt();
+        const id = loadIdentity();
+
+        return {
+          token: state.token,
+          step: 1,
+          reason,
+          studentId: id ? id.studentId : "",
+          firstName: id ? id.firstName : "",
+          lastName: id ? id.lastName : "",
+          attemptsCompleted: state.attemptsCompleted,
+          attempts: state.attempts,
+          best: best,
+          focusLost: state.focusLost,
+          totalTimeSec: state.globalStartMs ? getElapsedSec(state.globalStartMs) : null,
+          userAgent: navigator.userAgent
+        };
+      }
+
+      async function autoSubmit(reason) {
+        if (state.isSubmitted) return;
+        state.isSubmitted = true;
+
+        stopAttemptIfRunning(false);
+        stopGlobalTimer();
+
+        const payload = buildPayload(reason);
+
+        let submitOk = false;
+        let submitMsg = "";
+
+        if (ENDPOINT_URL) {
+          try {
+            await fetch(ENDPOINT_URL, {
+              method: "POST",
+              mode: "no-cors",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+              keepalive: true
+            });
+            submitOk = true;
+            submitMsg = "Résultats envoyés (enregistrement dans Sheets).";
+          } catch (err) {
+            submitMsg = "Envoi échoué, passage quand même à l'étape 2.";
+          }
+        } else {
+          submitMsg = "Aucun endpoint configuré, pas d'enregistrement serveur.";
+        }
+
+        const b = payload.best
+          ? `Meilleur score conservé.\nNet WPM: ${payload.best.netWpm.toFixed(1)}\nPrécision: ${payload.best.accuracyPct.toFixed(
+            1
+          )}%\nErreurs: ${payload.best.errors}`
+          : "Aucun essai complété.";
+
+        setStatus(`${b}\n${submitMsg}\nRedirection vers l'étape 2...`, submitOk ? "ok" : "warn");
+
+        navigateToStep(2);
+      }
+
+      /* =========================
+         STEP 2 FILE UPLOAD (.docx)
+      ========================= */
+      async function submitStep2File() {
+        const fileInput = $("step2File");
+        const statusEl = $("step2UploadStatus");
+        if (!statusEl) return;
+
+        if (!ENDPOINT_URL) {
+          statusEl.textContent = "ENDPOINT_URL n'est pas configuré.";
+          return;
+        }
+
+        if (!isLoggedIn()) {
+          statusEl.textContent = "Connecte-toi avant de soumettre.";
+          openModal();
+          return;
+        }
+
+        if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+          statusEl.textContent = "Choisis un fichier .docx avant de soumettre.";
+          return;
+        }
+
+        const file = fileInput.files[0];
+        if (!file.name.toLowerCase().endsWith(".docx")) {
+          statusEl.textContent = "Format invalide. Soumets un .docx.";
+          return;
+        }
+
+        statusEl.textContent = "Envoi du fichier en cours...";
+
+        try {
+          const b64 = await readFileAsBase64(file);
+          const id = loadIdentity();
+
+          const payload = {
+            token: state.token,
+            step: 2,
+            reason: "step2_upload",
+            studentId: id ? id.studentId : "",
+            firstName: id ? id.firstName : "",
+            lastName: id ? id.lastName : "",
+            best: bestAttempt(),
+            attemptsCompleted: state.attemptsCompleted,
+            attempts: state.attempts,
+            focusLost: state.focusLost,
+            totalTimeSec: state.globalStartMs ? getElapsedSec(state.globalStartMs) : null,
+            userAgent: navigator.userAgent,
+            file: {
+              name: file.name,
+              mimeType: file.type || "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+              base64: b64
+            }
+          };
+          const bodyText = JSON.stringify(payload);
+          statusEl.textContent = `Envoi…`;
+
+          await fetch(ENDPOINT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "text/plain;charset=UTF-8" },
+            body: JSON.stringify(payload)
+          });
+
+          statusEl.textContent = "Soumission envoyée. Étape 3 débloquée.";
+          if ($("btnToStep3")) $("btnToStep3").disabled = false;
+          clearStep2Timer();
+        } catch (err) {
+          statusEl.textContent = "Erreur lors de la soumission. Réessaie.";
+        }
+      }
+
+      /* =========================
+         STEP 3 FILE UPLOAD (.xlsx)
+      ========================= */
+      async function submitStep3File(e) {
+        // if called from an event handler, stop form submission
+        if (e && typeof e.preventDefault === "function") e.preventDefault();
+
+        const fileInput = $("step3File");
+        const statusEl = $("step3UploadStatus");
+        const btn = $("btnUploadStep3");
+
+        if (!statusEl) return;
+
+        try {
+          if (!ENDPOINT_URL) {
+            statusEl.textContent = "ENDPOINT_URL n'est pas configuré.";
+            return;
+          }
+
+          if (!isLoggedIn()) {
+            statusEl.textContent = "Connecte-toi avant de soumettre.";
+            openModal();
+            return;
+          }
+
+          if (!fileInput) {
+            statusEl.textContent = "Erreur: input step3File introuvable.";
+            return;
+          }
+
+          const files = fileInput.files;
+          const file = (files && files.length) ? files[0] : null;
+
+          // Debug: show what the browser sees
+          statusEl.textContent = file
+            ? `Fichier détecté: ${file.name} (${file.size} bytes)`
+            : "Aucun fichier détecté au moment du clic.";
+          await new Promise(r => setTimeout(r, 0));
+
+          if (!file) {
+            statusEl.textContent = "Choisis un fichier .xlsx avant de soumettre.";
+            return;
+          }
+
+          if (!file.name.toLowerCase().endsWith(".xlsx")) {
+            statusEl.textContent = "Format invalide. Soumets un .xlsx.";
+            return;
+          }
+
+          if (btn) btn.disabled = true;
+
+          statusEl.textContent = "Lecture du fichier…";
+          await new Promise(r => setTimeout(r, 0));
+
+          const b64 = await readFileAsBase64(file);
+
+          // Debug: base64 length must be > 0
+          statusEl.textContent = `envoi…`;
+          await new Promise(r => setTimeout(r, 0));
+
+          const id = loadIdentity();
+          const traceId = "step3_" + Date.now() + "_" + Math.random().toString(16).slice(2);
+
+          const payload = {
+            token: state.token,
+            step: 3,
+            reason: "step3_upload",
+            traceId,
+            studentId: id ? id.studentId : "",
+            firstName: id ? id.firstName : "",
+            lastName: id ? id.lastName : "",
+            best: bestAttempt(),
+            attemptsCompleted: state.attemptsCompleted,
+            attempts: state.attempts,
+            focusLost: state.focusLost,
+            totalTimeSec: state.globalStartMs ? getElapsedSec(state.globalStartMs) : null,
+            userAgent: navigator.userAgent,
+            file: {
+              name: file.name,
+              mimeType: file.type || "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+              base64: b64
+            }
+          };
+
+          await fetchWithTimeout(
+            ENDPOINT_URL,
+            {
+              method: "POST",
+              mode: "no-cors",
+              headers: { "Content-Type": "text/plain;charset=UTF-8" },
+              body: JSON.stringify(payload),
+              keepalive: true
+            },
+            15000
+          );
+
+          statusEl.textContent = "Soumission envoyée. Merci.";
+          openDoneModal();
+
+        } catch (err) {
+          statusEl.textContent = "Erreur: " + String(err);
+          if (btn) btn.disabled = false;
+        }
+      }
+      function openDoneModal() {
+        const modal = $("doneModal");
+        if (!modal) return;
+        modal.hidden = false;
+
+        const btn = $("btnCloseDone");
+        if (btn) btn.focus();
+      }
+
+      function closeDoneModal() {
+        const modal = $("doneModal");
+        if (modal) modal.hidden = true;
+      }
+
+      /* =========================
+         INIT
+      ========================= */
+      function init() {
+        const urlToken = getUrlParam("token");
+        const urlStep = parseInt(getUrlParam("step") || "1", 10);
+        const stored = loadIdentity();
+
+        if (urlToken) {
+          state.token = urlToken;
+          saveIdentity({
+            token: urlToken,
+            firstName: stored ? stored.firstName || "" : "",
+            lastName: stored ? stored.lastName || "" : "",
+            studentId: stored ? stored.studentId || "Utilisateur" : "Utilisateur"
+          });
+        } else if (stored && stored.token) {
+          state.token = stored.token;
+        } else {
+          state.token = genToken();
+          saveIdentity({ token: state.token, firstName: "", lastName: "", studentId: "" });
+        }
+
+        // Filename displays
+        wireFileNameDisplay("step2File", "step2FileNameDisplay");
+        wireFileNameDisplay("step3File", "step3FileNameDisplay");
+
+        updateLoginUI();
+
+        window.addEventListener("blur", () => {
+          state.focusLost++;
+        });
+
+        const typingInput = $("typingInput");
+        if (typingInput) {
+          typingInput.addEventListener("keydown", (e) => {
+            if (e.key === "Backspace") state.backspaces++;
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "v") {
+              e.preventDefault();
+              return false;
+            }
+          });
+          typingInput.addEventListener("paste", (e) => {
+            e.preventDefault();
+            return false;
+          });
+        }
+
+        setTargetText(0);
+
+        // Login handlers
+        if ($("btnLogin")) $("btnLogin").addEventListener("click", openModal);
+        if ($("loginPill")) $("loginPill").addEventListener("click", openModal);
+        if ($("btnCloseModal")) $("btnCloseModal").addEventListener("click", closeModal);
+
+        const loginForm = $("loginForm");
+        if (loginForm) {
+          loginForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const firstName = String(($("modalFirstName") && $("modalFirstName").value) || "").trim();
+            const lastName = String(($("modalLastName") && $("modalLastName").value) || "").trim();
+            const studentId = String(($("modalStudentId") && $("modalStudentId").value) || "").trim();
+
+            if (!studentId) {
+              alert("Ajoute au moins un numéro étudiant ou un courriel.");
+              return;
+            }
+
+            const cached = loadIdentity();
+            const token = cached && cached.token ? cached.token : state.token;
+
+            saveIdentity({ token, firstName, lastName, studentId });
+            state.token = token;
+            updateLoginUI();
+            closeModal();
+          });
+        }
+
+        if ($("btnConsoleAction")) {
+          $("btnConsoleAction").addEventListener("click", () => {
+            if (isLoggedIn()) {
+              clearIdentity();
+              updateLoginUI();
+            }
+          });
+        }
+
+        // Step 1 buttons
+        if ($("btnStart")) {
+          $("btnStart").addEventListener("click", () => {
+            if (state.globalStartMs) return;
+
+            if (!isLoggedIn()) {
+              alert("Connecte-toi d'abord via le bouton en haut.");
+              openModal();
+              return;
+            }
+
+            $("btnStart").disabled = true;
+            if ($("btnForceSubmit")) $("btnForceSubmit").disabled = false;
+
+            setText("kAttempt", `0 / ${MAX_ATTEMPTS}`);
+            setText("kAttemptTime", String(ATTEMPT_DURATION_SEC));
+            setText("kGlobalTime", String(GLOBAL_LIMIT_SEC));
+
+            startGlobalTimer();
+            startAttempt();
+          });
+        }
+
+        if ($("btnFinish")) $("btnFinish").addEventListener("click", () => finishAttempt("manual_finish"));
+
+        if ($("btnNext")) {
+          $("btnNext").addEventListener("click", () => {
+            if (state.attemptsCompleted >= MAX_ATTEMPTS) return;
+            if ($("typingInput")) $("typingInput").value = "";
+            setText("kAttemptTime", String(ATTEMPT_DURATION_SEC));
+            startAttempt();
+          });
+        }
+
+        if ($("btnForceSubmit")) {
+          $("btnForceSubmit").addEventListener("click", () => {
+            stopAttemptIfRunning(true);
+            autoSubmit("manual_submit");
+          });
+        }
+
+        // Step navigation
+        if ($("btnToStep3")) $("btnToStep3").addEventListener("click", () => navigateToStep(3));
+        if ($("btnBackToStep1")) $("btnBackToStep1").addEventListener("click", () => navigateToStep(1));
+        if ($("btnBackToStep2")) $("btnBackToStep2").addEventListener("click", () => navigateToStep(2));
+
+        // Upload buttons
+        if ($("btnUploadStep2")) $("btnUploadStep2").addEventListener("click", submitStep2File);
+        if ($("btnUploadStep3")) $("btnUploadStep3").addEventListener("click", (e) => submitStep3File(e));
+
+
+        // Apply URL step
+        state.step = [1, 2, 3].includes(urlStep) ? urlStep : 1;
+        setUrl(state.step, state.token);
+        renderByStep(state.step);
+      }
+      function openDoneModal() {
+        const modal = $("doneModal");
+        if (!modal) return;
+        modal.hidden = false;
+
+        const btn = $("btnCloseDone");
+        if (btn) btn.focus();
+      }
+
+      function closeDoneModal() {
+        const modal = $("doneModal");
+        if (modal) modal.hidden = true;
+      }
+
+      init();
+    </script>
 </body>
+
 </html>
-
-
-
-
